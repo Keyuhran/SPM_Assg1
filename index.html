@@ -3,9 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./styles.css" rel="stylesheet">
     <title>Document</title>
 </head>
-<body>
-    
+<body class="font">
+    <div class="flex p-150 h-100vh justify-center">
+        <div class="flex flex-col w-70p h-80p">
+            <div class="flex w-100p h-50p">
+                <div class="w-50p bg-orange m-10 rounded-30" onclick="goToArcade()">
+                    <div class="flex flex-col m-30 ml-60">
+                        <h1>New Arcade Game</h1>
+                        <p>Start a new Arcade game and get a new high score!</p>
+                    </div>
+                </div>
+                <div class="w-50p bg-orange m-10 rounded-30" onclick="goToFreePlay()">
+                    <div class="flex flex-col m-30 ml-60">
+                        <h1>New Free Play Game</h1>
+                        <p>Start a new Free Play game and play to your heart's content!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex h-32p w-100p">
+                <div class="w-70p bg-orange m-10 rounded-30" onclick="goToLoadGame()">
+                    <div class="flex items-center h-100p ml-60">
+                        <h1>Load Saved Game</h1>
+                    </div>
+                </div>
+                <div class="w-30p bg-orange m-10 rounded-30" onclick="exit()">
+                    <div class="flex h-100p items-center ml-60">
+                        <h1>Exit</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex w-20p m-10 h-80p">
+            <div class="w-100p bg-orange h-80p rounded-30">
+                <div class="flex flex-col w-80p items-center m-30 ml-50" onclick="goToLeaderboard()">
+                    <div>
+                        <h1>Leaderboard</h1>
+                        <p>Track the top scores in Ngee Ann City!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+<script src="index.js"></script>
 </html>

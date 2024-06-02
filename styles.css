@@ -1,0 +1,123 @@
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.w-20p {
+    width: 20%;
+}
+
+.w-30p {
+    width: 30%;
+}
+
+.w-35p {
+    width: 35%;
+}
+
+.w-50p {
+    width: 50%;
+}
+
+.w-70p {
+    width: 70%;
+}
+
+.h-30p {
+    height: 30%;
+}
+
+.h-32p {
+    height: 32.5%;
+}
+
+.h-50p {
+    height: 50%;
+}
+
+.h-80p {
+    height: 80%;
+}
+
+.bg-red {
+    background-color: lightcoral;
+}
+
+.bg-green {
+    background-color: lightgreen;
+}
+
+.bg-blue {
+    background-color: lightskyblue;
+}
+
+.bg-orange {
+    background-color: lightsalmon;
+}
+
+.bg-gray {
+    background-color: lightgray;
+}
+
+.p-10 {
+    padding: 10px;
+}
+
+.p-150 {
+    padding: 150px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.m-10 {
+    margin: 10px;
+}
+
+.m-30 {
+    margin: 30px;
+}
+
+.ml-50 {
+    margin-left: 50px;
+}
+
+.ml-60 {
+    margin-left: 60px;
+}
+
+.m-80 {
+    margin: 80px;
+}
+
+.h-100p {
+    height: 100%;
+}
+
+.h-100vh {
+    height: 100vh;
+}
+
+.w-100p {
+    width: 100%;
+}
+
+.rounded-30 {
+    border-radius: 30px;
+}
+
+.font {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
