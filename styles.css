@@ -1,3 +1,25 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.title {
+    font-size: 24px;
+    color: #333;
+}
+
 .flex {
     display: flex;
 }
@@ -22,20 +44,12 @@
     width: 30%;
 }
 
-.w-35p {
-    width: 35%;
-}
-
 .w-50p {
     width: 50%;
 }
 
 .w-70p {
     width: 70%;
-}
-
-.h-30p {
-    height: 30%;
 }
 
 .h-32p {
@@ -50,36 +64,45 @@
     height: 80%;
 }
 
-.bg-red {
-    background-color: lightcoral;
+.bg-arcade {
+    background-color: #FDB9AA;
+    color: #D66D50;
 }
 
-.bg-green {
-    background-color: lightgreen;
+.bg-freeplay {
+    background-color: #98E3DB;
+    color: #33767B;
 }
 
-.bg-blue {
-    background-color: lightskyblue;
+.bg-leaderboard {
+    background-color: #D66D50;
+    color: #FDB9AA;
 }
 
-.bg-orange {
-    background-color: lightsalmon;
+.bg-loadgame {
+    background-color: #FFAA80;
+    color: #D66D50;
 }
 
-.bg-gray {
-    background-color: lightgray;
+.bg-exit {
+    background-color: #FF5580;
+    color: #FDB9AA;
 }
 
-.p-10 {
-    padding: 10px;
+.rounded-30 {
+    border-radius: 30px;
 }
 
-.p-150 {
-    padding: 150px;
+.h-100p {
+    height: 100%;
 }
 
-.mb-10 {
-    margin-bottom: 10px;
+.h-100vh {
+    height: 100vh;
+}
+
+.w-100p {
+    width: 100%;
 }
 
 .m-10 {
@@ -98,26 +121,52 @@
     margin-left: 60px;
 }
 
-.m-80 {
-    margin: 80px;
+.button-container {
+    margin-top: 100px; /* Added margin to push buttons down */
 }
 
-.h-100p {
-    height: 100%;
+.visuals, .visuals-freeplay, .visuals-loadgame, .visuals-exit, .visuals-leaderboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px; /* Position the visuals higher */
+    overflow: hidden; /* Ensure visuals do not exceed button boundaries */
+    height: 60px; /* Adjust height to fit within button */
+    position: relative;
 }
 
-.h-100vh {
-    height: 100vh;
+.pacman {
+    transform: rotate(45deg);
+    height: 60px; /* Adjust size as needed */
 }
 
-.w-100p {
-    width: 100%;
+.ai-gaming {
+    transform: rotate(35deg);
+    height: 60px; /* Adjust size as needed */
+    position: absolute;
+    right: 0;
 }
 
-.rounded-30 {
-    border-radius: 30px;
+.home {
+    height: 50px; /* Adjust size as needed */
 }
 
-.font {
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+.street {
+    height: 50px; /* Adjust size as needed */
+}
+
+.puzzle {
+    height: 50px; /* Adjust size as needed */
+}
+
+.floppy-disk {
+    height: 50px; /* Adjust size as needed */
+}
+
+.logout {
+    height: 50px; /* Adjust size as needed */
+}
+
+.leaderboard {
+    height: 50px; /* Adjust size as needed */
 }
