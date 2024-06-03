@@ -14,6 +14,18 @@
     align-items: center;
 }
 
+.justify-end {
+    justify-content: end;
+}
+
+.w-4p {
+    width: 4%;
+}
+
+.w-5p {
+    width: 5%;
+}
+
 .w-20p {
     width: 20%;
 }
@@ -32,6 +44,14 @@
 
 .w-70p {
     width: 70%;
+}
+
+.h-4p {
+    height: 4%;
+}
+
+.h-5p {
+    height: 5%;
 }
 
 .h-30p {
@@ -55,11 +75,11 @@
 }
 
 .bg-green {
-    background-color: lightgreen;
+    background-color: #33767B;
 }
 
 .bg-blue {
-    background-color: lightskyblue;
+    background-color: #98E3DB;
 }
 
 .bg-orange {
@@ -82,6 +102,10 @@
     margin-bottom: 10px;
 }
 
+.m-5 {
+    margin: 5px;
+}
+
 .m-10 {
     margin: 10px;
 }
@@ -98,9 +122,22 @@
     margin-left: 60px;
 }
 
+.mr-60 {
+    margin-right: 60px;
+}
+
+.mb-60 {
+    margin-bottom: 60px;
+}
+
 .m-80 {
     margin: 80px;
 }
+
+.m-150 {
+    margin: 150px;
+}
+
 
 .h-100p {
     height: 100%;
@@ -114,10 +151,74 @@
     width: 100%;
 }
 
+.border-0 {
+
+}
+
+.border-5 {
+    border: 5px;
+}
+
+.rounded-5 {
+    border-radius: 5px;
+}
+
 .rounded-30 {
     border-radius: 30px;
+}
+
+.gap-50 {
+    gap: 50px;
 }
 
 .font {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+.button-1 {
+  background-color: #FF5580;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-2 {
+    background-color: #015A6C;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }

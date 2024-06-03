@@ -3,11 +3,11 @@ function goToArcade() {
 }
 
 function goToFreePlay() {
-    window.location.href = "arcade.html";
+    window.location.href = "free-play.html";
 }
 
 function goToLeaderboard() {
-    window.location.href = "arcade.html";
+    window.location.href = "leaderboard.html";
 }
 
 function goToLoadGame() {
