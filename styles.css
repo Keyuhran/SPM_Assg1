@@ -66,6 +66,10 @@
     height: 50%;
 }
 
+.h-60p {
+    height: 60%;
+}
+
 .h-80p {
     height: 80%;
 }
@@ -92,6 +96,10 @@
 
 .p-10 {
     padding: 10px;
+}
+
+.p-20 {
+    padding: 20px;
 }
 
 .p-150 {
@@ -173,6 +181,10 @@
 
 .font {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .button-1 {
