@@ -1,8 +1,97 @@
 const board = document.getElementById("board");
 
+const buildings = ["Residential", "Road", "Industry", "Park", "Commercial"];
+let selectedBuildings = [];
+let built = {};
+let turnCounter = 0;
+let choice = "Residential";
+
+for (let i = 0; i < 2; i++) {
+    let random = Math.floor(Math.random() * (5 - i));
+    selectedBuildings.push(buildings[random]);
+    buildings.splice(random, 1);
+    console.log(buildings);
+    if (i == 0) {
+        const building1 = document.getElementById("building1");
+        if (selectedBuildings[0] == "Residential") {
+            const html = `<img src="./images/residential.svg" />
+                        <h1 class="text-center">Residential</h1>`;
+            building1.insertAdjacentHTML("afterbegin", html);
+        } else if (selectedBuildings[0] == "Road") {
+            const html = `<img src="./images/road.svg" />
+                        <h1 class="text-center">Road</h1>`;
+            building1.insertAdjacentHTML("afterbegin", html);
+        } else if (selectedBuildings[0] == "Industry") {
+            const html = `<img src="./images/industry.svg" />
+                        <h1 class="text-center">Industry</h1>`;
+            building1.insertAdjacentHTML("afterbegin", html);
+        } else if (selectedBuildings[0] == "Park") {
+            const html = `<img src="./images/park.svg" />
+                        <h1 class="text-center">Park</h1>`;
+            building1.insertAdjacentHTML("afterbegin", html);
+        } else if (selectedBuildings[0] == "Commercial"){
+            const html = `<img src="./images/commercial.svg" />
+                        <h1 class="text-center">Commercial</h1>`;
+            building1.insertAdjacentHTML("afterbegin", html);
+        }
+    } else {
+        const building2 = document.getElementById("building2");
+        if (selectedBuildings[1] == "Residential") {
+            const html = `<img src="./images/residential.svg" />
+                        <h1 class="text-center">Residential</h1>`;
+            building2.insertAdjacentHTML("afterbegin", html);
+        } else if (selectedBuildings[1] == "Road") {
+            const html = `<img src="./images/road.svg" />
+                        <h1 class="text-center">Road</h1>`;
+            building2.insertAdjacentHTML("afterbegin", html);
+        } else if (selectedBuildings[1] == "Industry") {
+            const html = `<img src="./images/industry.svg" />
+                        <h1 class="text-center">Industry</h1>`;
+            building2.insertAdjacentHTML("afterbegin", html);
+        } else if (selectedBuildings[1] == "Park") {
+            const html = `<img src="./images/park.svg" />
+                        <h1 class="text-center">Park</h1>`;
+            building2.insertAdjacentHTML("afterbegin", html);
+        } else if (selectedBuildings[1] == "Commercial") {
+            const html = `<img src="./images/commercial.svg" />
+                        <h1 class="text-center">Commercial</h1>`;
+            building2.insertAdjacentHTML("afterbegin", html);
+        }
+    }
+}
+
+console.log(selectedBuildings);
+
+
 
 function getId(id) {
-    console.log(id);
+    const tile = document.getElementById(id);
+    turnCounter++;
+    if (tile.childElementCount > 0) {
+        tile.removeChild(tile.firstElementChild);
+        delete built[id];
+    } else if (choice == "Residential") {
+        const html = `<img src="./images/residential-tiny.svg" />`;
+        tile.insertAdjacentHTML("afterbegin", html);
+        built[id] = "Residential";
+    } else if (choice == "Road") {
+        const html = `<img src="./images/road-tiny.svg" />`;
+        tile.insertAdjacentHTML("afterbegin", html);
+        built[id] = "Road";
+    } else if (choice == "Industry") {
+        const html = `<img src="./images/industry-tiny.svg" />`;
+        tile.insertAdjacentHTML("afterbegin", html);
+        built[id] = "Industry";
+    } else if (choice == "Park") {
+        const html = `<img src="./images/park-tiny.svg" />`;
+        tile.insertAdjacentHTML("afterbegin", html);
+        built[id] = "Park";
+    } else if (choice == "Commercial") {
+        const html = `<img src="./images/commercial-tiny.svg" />`;
+        tile.insertAdjacentHTML("afterbegin", html);
+        built[id] = "Commercial";
+    }
+    console.log(built);
 }
 
 for (let i = 1; i < 21; i++) {
