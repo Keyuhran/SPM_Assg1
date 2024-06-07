@@ -5,6 +5,7 @@ let selectedBuildings = [];
 let built = {};
 let turnCounter = 0;
 let choice = "Residential";
+let coins = 16;
 
 for (let i = 0; i < 2; i++) {
     let random = Math.floor(Math.random() * (5 - i));
@@ -70,28 +71,47 @@ function getId(id) {
     if (tile.childElementCount > 0) {
         tile.removeChild(tile.firstElementChild);
         delete built[id];
-    } else if (choice == "Residential") {
+    } else if (choice == "Residential" && coins > 0) {
+        coins--;
         const html = `<img src="./images/residential-tiny.svg" />`;
         tile.insertAdjacentHTML("afterbegin", html);
         built[id] = "Residential";
-    } else if (choice == "Road") {
+        const coinCounter = document.getElementById("coin-counter");
+        coinCounter.textContent = `Coins: ${coins}`;
+    } else if (choice == "Road" && coins > 0) {
+        coins--;
         const html = `<img src="./images/road-tiny.svg" />`;
         tile.insertAdjacentHTML("afterbegin", html);
         built[id] = "Road";
-    } else if (choice == "Industry") {
+        const coinCounter = document.getElementById("coin-counter");
+        coinCounter.textContent = `Coins: ${coins}`;
+    } else if (choice == "Industry" && coins > 0) {
+        coins--;
         const html = `<img src="./images/industry-tiny.svg" />`;
         tile.insertAdjacentHTML("afterbegin", html);
         built[id] = "Industry";
-    } else if (choice == "Park") {
+        const coinCounter = document.getElementById("coin-counter");
+        coinCounter.textContent = `Coins: ${coins}`;
+    } else if (choice == "Park" && coins > 0) {
+        coins--;
         const html = `<img src="./images/park-tiny.svg" />`;
         tile.insertAdjacentHTML("afterbegin", html);
         built[id] = "Park";
-    } else if (choice == "Commercial") {
+        const coinCounter = document.getElementById("coin-counter");
+        coinCounter.textContent = `Coins: ${coins}`;
+    } else if (choice == "Commercial" && coins > 0) {
+        coins--;
         const html = `<img src="./images/commercial-tiny.svg" />`;
         tile.insertAdjacentHTML("afterbegin", html);
         built[id] = "Commercial";
+        const coinCounter = document.getElementById("coin-counter");
+        coinCounter.textContent = `Coins: ${coins}`;
+    
     }
     console.log(built);
+    window.onload = function(){
+        document.getElementById('coin-output').innerHTML = coins;
+    }
 }
 
 for (let i = 1; i < 21; i++) {
