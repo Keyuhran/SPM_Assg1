@@ -36,6 +36,18 @@ header {
     align-items: center;
 }
 
+.justify-end {
+    justify-content: end;
+}
+
+.w-4p {
+    width: 4%;
+}
+
+.w-5p {
+    width: 5%;
+}
+
 .w-20p {
     width: 20%;
 }
@@ -58,6 +70,10 @@ header {
 
 .h-50p {
     height: 50%;
+}
+
+.h-60p {
+    height: 60%;
 }
 
 .h-80p {
@@ -103,6 +119,10 @@ header {
 
 .w-100p {
     width: 100%;
+}
+
+.m-5 {
+    margin: 5px;
 }
 
 .m-10 {
