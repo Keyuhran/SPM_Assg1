@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="./styles.css" rel="stylesheet">
+    <title>Ngee Ann City - End Game</title>
 </head>
 <body>
-    
+    <header>
+        <h1 class="title">Ngee Ann City</h1>
+    </header>
+    <div class="flex p-150 h-100vh flex-col items-center">
+        <h1 class="game-over-title">Game Over!</h1>
+        <div class="endgame-container">
+            <p class="endgame-score">Your Score: XXXX</p>
+            <div class="flex flex-col items-center">
+                <button class="endgame-button" onclick="tryAgain()">Try Again</button>
+                <button class="endgame-button" onclick="goToMainMenu()">Main Menu</button>
+                <button class="endgame-button" onclick="goToLeaderboard()">Leaderboard</button>
+                <button class="endgame-button" onclick="quitGame()">Quit Game</button>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
