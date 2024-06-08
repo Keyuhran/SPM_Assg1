@@ -13,85 +13,75 @@ for (let i = 0; i < 2; i++) {
     console.log(buildings);
     if (i == 0) {
         const building1 = document.getElementById("building1");
-        if (selectedBuildings[0] == "Residential") {
-            const html = `<img src="./images/residential.svg" />
-                        <h1 class="text-center">Residential</h1>`;
-            building1.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[0] == "Road") {
-            const html = `<img src="./images/road.svg" />
-                        <h1 class="text-center">Road</h1>`;
-            building1.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[0] == "Industry") {
-            const html = `<img src="./images/industry.svg" />
-                        <h1 class="text-center">Industry</h1>`;
-            building1.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[0] == "Park") {
-            const html = `<img src="./images/park.svg" />
-                        <h1 class="text-center">Park</h1>`;
-            building1.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[0] == "Commercial"){
-            const html = `<img src="./images/commercial.svg" />
-                        <h1 class="text-center">Commercial</h1>`;
-            building1.insertAdjacentHTML("afterbegin", html);
-        }
+        const html = `<img src="./images/${selectedBuildings[0].toLowerCase()}.svg" />
+                      <h1 class="text-center">${selectedBuildings[0]}</h1>`;
+        building1.insertAdjacentHTML("afterbegin", html);
     } else {
         const building2 = document.getElementById("building2");
-        if (selectedBuildings[1] == "Residential") {
-            const html = `<img src="./images/residential.svg" />
-                        <h1 class="text-center">Residential</h1>`;
-            building2.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[1] == "Road") {
-            const html = `<img src="./images/road.svg" />
-                        <h1 class="text-center">Road</h1>`;
-            building2.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[1] == "Industry") {
-            const html = `<img src="./images/industry.svg" />
-                        <h1 class="text-center">Industry</h1>`;
-            building2.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[1] == "Park") {
-            const html = `<img src="./images/park.svg" />
-                        <h1 class="text-center">Park</h1>`;
-            building2.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[1] == "Commercial") {
-            const html = `<img src="./images/commercial.svg" />
-                        <h1 class="text-center">Commercial</h1>`;
-            building2.insertAdjacentHTML("afterbegin", html);
-        }
+        const html = `<img src="./images/${selectedBuildings[1].toLowerCase()}.svg" />
+                      <h1 class="text-center">${selectedBuildings[1]}</h1>`;
+        building2.insertAdjacentHTML("afterbegin", html);
     }
 }
 
 console.log(selectedBuildings);
 
-
-
 function getId(id) {
     const tile = document.getElementById(id);
     turnCounter++;
+
+    // Check if the tile already has a building
     if (tile.childElementCount > 0) {
         tile.removeChild(tile.firstElementChild);
         delete built[id];
-    } else if (choice == "Residential") {
-        const html = `<img src="./images/residential-tiny.svg" />`;
-        tile.insertAdjacentHTML("afterbegin", html);
-        built[id] = "Residential";
-    } else if (choice == "Road") {
-        const html = `<img src="./images/road-tiny.svg" />`;
-        tile.insertAdjacentHTML("afterbegin", html);
-        built[id] = "Road";
-    } else if (choice == "Industry") {
-        const html = `<img src="./images/industry-tiny.svg" />`;
-        tile.insertAdjacentHTML("afterbegin", html);
-        built[id] = "Industry";
-    } else if (choice == "Park") {
-        const html = `<img src="./images/park-tiny.svg" />`;
-        tile.insertAdjacentHTML("afterbegin", html);
-        built[id] = "Park";
-    } else if (choice == "Commercial") {
-        const html = `<img src="./images/commercial-tiny.svg" />`;
-        tile.insertAdjacentHTML("afterbegin", html);
-        built[id] = "Commercial";
+    } else {
+        // Check if it's the first building
+        if (Object.keys(built).length === 0) {
+            // Allow the first building to be placed anywhere
+            placeBuilding(tile, id);
+        } else {
+            // Check if the tile is adjacent to an existing building
+            const adjacentTiles = getAdjacentTiles(id);
+            let adjacentBuilding = false;
+            for (const adjTileId of adjacentTiles) {
+                if (built[adjTileId]) {
+                    adjacentBuilding = true;
+                    break;
+                }
+            }
+            if (adjacentBuilding) {
+                placeBuilding(tile, id);
+            } else {
+                alert("You can only place buildings adjacent to existing ones.");
+            }
+        }
     }
-    console.log(built);
+}
+
+// Helper function to get adjacent tile IDs
+function getAdjacentTiles(id) {
+    const numericId = parseInt(id, 10);
+    const row = Math.floor((numericId - 1) / 20);
+    const col = (numericId - 1) % 20;
+    const adjacentTiles = [];
+
+    // Check top
+    if (row > 0) adjacentTiles.push(numericId - 20);
+    // Check bottom
+    if (row < 19) adjacentTiles.push(numericId + 20);
+    // Check left
+    if (col > 0) adjacentTiles.push(numericId - 1);
+    // Check right
+    if (col < 19) adjacentTiles.push(numericId + 1);
+
+    return adjacentTiles;
+}
+
+// Helper function to place a building on a tile
+function placeBuilding(tile, id) {
+    const html = `<img src="./images/${choice.toLowerCase()}-tiny.svg" />`;
+    tile.insertAdjacentHTML("afterbegin", html);
+    built[id] = choice;
 }
 
 for (let i = 1; i < 21; i++) {
@@ -154,4 +144,5 @@ for (let i = 1; i < 21; i++) {
 
     const tileHTML20 = `<button id="` + (i * 1 + 380) + `" class="w-4p bg-green m-5 rounded-5 border-0" onclick="getId(this.id)"></button>`;
     document.getElementById("r20").insertAdjacentHTML("beforeend", tileHTML20);
-}
+} 
+
