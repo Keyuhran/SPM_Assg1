@@ -33,8 +33,11 @@ function getId(id) {
   
     // Check if the tile already has a building
     if (tile.childElementCount > 0) {
+      const buildingType = built[id];
       tile.removeChild(tile.firstElementChild);
       delete built[id];
+      coins -= 1;
+      updateCoinDisplay()
     } else {
       // Check if it's the first building
       if (Object.keys(built).length === 0) {
