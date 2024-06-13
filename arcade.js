@@ -272,13 +272,26 @@ function calculateScore() {
   points += tempPoints;
 
   score.innerHTML = `Score: ` + points + ``;
+
+  if (coins == 0) {
+    setTimeout(() => {
+      location.href = "./end-screen.html";
+    }, 1000);
+  }
 }
   
 // helper function to update the coin display on the main page
 function updateCoinDisplay() {
     const coinDisplay = document.getElementById("coin-display");
     coinDisplay.textContent = `Coins: ${coins}`;
-  }
+}
+
+function exitGame() {
+  location.href = "./index.html";
+}
+
+const exitButton = document.getElementById("exitButton");
+exitButton.addEventListener("click", exitGame);
 
 for (let i = 1; i < 21; i++) {
     const tileHTML1 = `<button id="` + i * 1 + `" class="w-4p bg-green m-5 rounded-5 border-0" onclick="getId(this.id)"></button>`;
