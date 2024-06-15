@@ -5,27 +5,30 @@ let selectedBuildings = [];
 let built = {};
 let turnCounter = 0;
 let coins = 16;
-let choice = "Residential";
+let choice;
 
 for (let i = 0; i < 2; i++) {
     let random = Math.floor(Math.random() * (5 - i));
     selectedBuildings.push(buildings[random]);
     buildings.splice(random, 1);
-    console.log(buildings);
     if (i == 0) {
         const building1 = document.getElementById("building1");
         const html = `<img src="./images/${selectedBuildings[0].toLowerCase()}.svg" />
                       <h1 class="text-center">${selectedBuildings[0]}</h1>`;
         building1.insertAdjacentHTML("afterbegin", html);
+        building1.addEventListener("click", function() {
+          choice = selectedBuildings[0];
+        })
     } else {
         const building2 = document.getElementById("building2");
         const html = `<img src="./images/${selectedBuildings[1].toLowerCase()}.svg" />
                       <h1 class="text-center">${selectedBuildings[1]}</h1>`;
         building2.insertAdjacentHTML("afterbegin", html);
+        building2.addEventListener("click", function() {
+          choice = selectedBuildings[1];
+        })
     }
 }
-
-console.log(selectedBuildings);
 
 function getId(id) {
     const tile = document.getElementById(id);
@@ -58,7 +61,7 @@ function getId(id) {
           }
         }
         if (adjacentBuilding) {
-          if (coins >= getBuildingCost(choice)) {
+        if (coins >= getBuildingCost(choice)) {
             placeBuilding(tile, id);
           } else {
             alert("Not enough coins to place a building!");
@@ -96,6 +99,7 @@ function placeBuilding(tile, id) {
     built[id] = choice;
     coins -= getBuildingCost(choice); //deduct coins
     updateCoinDisplay(); //update coin display
+    calculateScore();
 }
 
 // helper function to get the cost of a building
@@ -116,12 +120,181 @@ function getBuildingCost(buildingType) {
             return 0;
     }
   }
+
+var points = 0;
+const score = document.getElementById("score");
+function calculateScore() {
+  let tempPoints = 0;
+  for (let i = 0; i < Object.keys(built).length; i++) {
+    let tempPoints2 = 0;
+    let tileId = parseInt(Object.keys(built)[i]);
+    let type = Object.values(built)[i]
+    if (type == "Residential") {
+      if (Object.keys(built).includes((tileId + 20).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 20] == "Commercial") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 20] == "Park") {
+          tempPoints2 += 2;
+        } else if (built[tileId + 20] == "Industry") {
+          tempPoints2 += 1;
+          tempPoints += tempPoints2;
+          continue;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 20).toString()) == true) {
+        if (built[tileId - 20] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 20] == "Commercial") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 20] == "Park") {
+          tempPoints2 += 2;
+        } else if (built[tileId - 20] == "Industry") {
+          tempPoints2 += 1;
+          tempPoints += tempPoints2;
+          continue;
+        }
+      }
+      if (Object.keys(built).includes((tileId + 1).toString()) == true) {
+        if (built[tileId + 1] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 1] == "Commercial") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 1] == "Park") {
+          tempPoints2 += 2;
+        } else if (built[tileId + 1] == "Industry") {
+          tempPoints2 += 1;
+          tempPoints += tempPoints2;
+          continue;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 1).toString()) == true) {
+        if (built[tileId - 1] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 1] == "Commercial") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 1] == "Park") {
+          tempPoints2 += 2;
+        } else if (built[tileId - 1] == "Industry") {
+          tempPoints2 += 1;
+          tempPoints += tempPoints2;
+          continue;
+        }
+      }
+    } else if (type == "Industry") {
+      tempPoints2 += Object.values(built).filter(x => x == "Industry").length;
+      if (Object.keys(built).includes((tileId + 20).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 20).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId + 1).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 1).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        }
+      }
+    } else if (type == "Commercial") {
+      if (Object.keys(built).includes((tileId + 20).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 20] == "Commercial") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 20).toString()) == true) {
+        if (built[tileId - 20] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 20] == "Commercial") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId + 1).toString()) == true) {
+        if (built[tileId + 1] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 1] == "Commercial") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 1).toString()) == true) {
+        if (built[tileId - 1] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 1] == "Commercial") {
+          tempPoints2 += 1;
+        }
+      }
+    } else if (type == "Park") {
+      if (Object.keys(built).includes((tileId + 20).toString()) == true) {
+        if (built[tileId + 20] == "Park") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 20).toString()) == true) {
+        if (built[tileId - 20] == "Park") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId + 1).toString()) == true) {
+        if (built[tileId + 1] == "Park") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 1).toString()) == true) {
+        if (built[tileId - 1] == "Park") {
+          tempPoints2 += 1;
+        }
+      }
+    } else if (type == "Road") {
+      tempPoints2 += 1;
+      for (let i = 0; i < 20; i++) {
+        if (Object.keys(built).includes((tileId + i + 1).toString()) == true) {
+          if (built[tileId + 1] == "Road") {
+            tempPoints2 += 1;
+          }
+        }
+
+        if (Object.keys(built).includes((tileId - i - 1).toString()) == true) {
+          if (built[tileId - 1] == "Road") {
+            tempPoints2 += 1;
+          }
+        }
+      }
+    }
+    tempPoints += tempPoints2;
+  }
+  points += tempPoints;
+
+  score.innerHTML = `Score: ` + points + ``;
+
+  if (coins == 0) {
+    setTimeout(() => {
+      location.href = "./end-screen.html";
+    }, 1000);
+  }
+}
   
 // helper function to update the coin display on the main page
 function updateCoinDisplay() {
     const coinDisplay = document.getElementById("coin-display");
     coinDisplay.textContent = `Coins: ${coins}`;
-  }
+}
+
+function exitGame() {
+  location.href = "./index.html";
+}
+
+const exitButton = document.getElementById("exitButton");
+exitButton.addEventListener("click", exitGame);
 
 for (let i = 1; i < 21; i++) {
     const tileHTML1 = `<button id="` + i * 1 + `" class="w-4p bg-green m-5 rounded-5 border-0" onclick="getId(this.id)"></button>`;
