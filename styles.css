@@ -158,6 +158,10 @@
     height: 100%;
 }
 
+.h-70p {
+    height: 70%;
+}
+
 .h-100vh {
     height: 100vh;
 }
