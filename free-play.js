@@ -40,3 +40,36 @@ building5.insertAdjacentHTML("afterbegin", html5);
 building5.addEventListener("click", function() {
     choice = "Commercial";
 })
+
+let rows = 5;
+
+const board = document.getElementById("board");
+
+function drawBoard() {
+    board.innerHTML = ``;
+    for (let i = 1; i < rows + 1; i++) {
+        let rowHTML = `<div id="r${i}" class="flex justify-center w-70p h-5p"></div>`;
+        board.insertAdjacentHTML("beforeend", rowHTML);
+        for (let j = 1; j < rows + 1; j++) {
+            let id = parseInt(j * 1) + parseInt((i - 1) * rows);
+            let tileHTML = `<button id="${id}" class="w-4p bg-green m-5 rounded-5 border-0" onclick="getId(this.id)"></button>`;
+            document.getElementById(`r${i}`).insertAdjacentHTML("beforeend", tileHTML);
+        }
+    }
+}
+
+function getId(id) {
+    const tile = document.getElementById(id);
+    if (id >= 1 && id <= rows) {
+        rows += 10;
+        drawBoard();
+    } else if (id % rows == 0 || id % rows == 1) {
+        rows += 10;
+        drawBoard();
+    } else if (id >= (rows - 1) * rows && id <= rows * rows) {
+        rows += 10;
+        drawBoard();
+    }
+}
+drawBoard();
+
