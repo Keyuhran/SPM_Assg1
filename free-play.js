@@ -1,5 +1,6 @@
 const buildings = ["Residential", "Road", "Industry", "Park", "Commercial"];
 let choice;
+let built = {};
 
 const building1 = document.getElementById("building1");
 const html1 = `<img src="./images/residential.svg" />
@@ -56,18 +57,63 @@ function drawBoard() {
             document.getElementById(`r${i}`).insertAdjacentHTML("beforeend", tileHTML);
         }
     }
+
+    for (let i = 0; 0 < Object.keys(built).length; i++) {
+        document.getElementById(Object.keys(built)[i]).innerHTML = `<img src="./images/${Object.values(built)[i]}-tiny.svg" />`;
+    }
 }
 
 function getId(id) {
     const tile = document.getElementById(id);
+    if (tile.childElementCount > 0) {
+        tile.removeChild(tile.firstElementChild);
+        delete built[id];
+    } else {
+        tile.innerHTML = `<img src="./images/${choice.toLowerCase()}-tiny.svg" />`;
+        built[id] = choice;
+        console.log(built);
+    }
+
     if (id >= 1 && id <= rows) {
         rows += 10;
+        let newBuilt = {};
+        for (let i = 0; i < Object.keys(built).length; i++) {
+            let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
+            newBuilt[newId] = Object.values(built)[i];
+        }
+        built = newBuilt;
         drawBoard();
-    } else if (id % rows == 0 || id % rows == 1) {
+    } else if (id % rows == 0) {
         rows += 10;
+        let newBuilt = {};
+        for (let i = 0; i < Object.keys(built).length; i++) {
+            if (Object.keys(built)[i] % (rows - 10) == 0) {
+                let newId = (Math.floor((Object.keys(built)[i] - 1) / (rows - 10)) + 5) * rows + 5 + ((Object.keys(built)[i] - 1) % (rows - 10)) + 1;
+                newBuilt[newId] = Object.values(built)[i];
+            } else {
+                let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
+                newBuilt[newId] = Object.values(built)[i];
+            }
+        }
+        built = newBuilt;
+        drawBoard();
+    } else if (id % rows == 1) {
+        rows += 10;
+        let newBuilt = {};
+        for (let i = 0; i < Object.keys(built).length; i++) {
+            let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
+            newBuilt[newId] = Object.values(built)[i];
+        }
+        built = newBuilt;
         drawBoard();
     } else if (id >= (rows - 1) * rows && id <= rows * rows) {
         rows += 10;
+        let newBuilt = {};
+        for (let i = 0; i < Object.keys(built).length; i++) {
+            let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
+            newBuilt[newId] = Object.values(built)[i];
+        }
+        built = newBuilt;
         drawBoard();
     }
 }
