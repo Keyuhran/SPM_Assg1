@@ -71,6 +71,8 @@ function getId(id) {
     if (tile.childElementCount > 0) {
         tile.removeChild(tile.firstElementChild);
         delete built[id];
+        coins -= 1;
+        updateCoinDisplay();
     } else {
         tile.innerHTML = `<img src="./images/${choice.toLowerCase()}-tiny.svg" />`;
         built[id] = choice;
