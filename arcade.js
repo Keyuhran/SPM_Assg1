@@ -31,49 +31,53 @@ for (let i = 0; i < 2; i++) {
 }
 
 function getId(id) {
-    const tile = document.getElementById(id);
-    turnCounter++;
+  const tile = document.getElementById(id);
+  turnCounter++;
+
   
-    // Check if the tile already has a building
-    if (tile.childElementCount > 0) {
-      const buildingType = built[id];
+  if (tile.childElementCount > 0) {
+    const buildingType = built[id];
+    if (coins >= 1) {  
       tile.removeChild(tile.firstElementChild);
       delete built[id];
       coins -= 1;
-      updateCoinDisplay()
+      updateCoinDisplay();
     } else {
-      // Check if it's the first building
-      if (Object.keys(built).length === 0) {
-        // Allow the first building to be placed anywhere
+      alert("Not enough coins to remove building!");
+    }
+  } else {
+    
+    if (Object.keys(built).length === 0) {
+      
+      if (coins >= getBuildingCost(choice)) {
+        placeBuilding(tile, id);
+      } else {
+        alert("Not enough coins to place a building!");
+      }
+    } else {
+      
+      const adjacentTiles = getAdjacentTiles(id);
+      let adjacentBuilding = false;
+      for (const adjTileId of adjacentTiles) {
+        if (built[adjTileId]) {
+          adjacentBuilding = true;
+          break;
+        }
+      }
+      if (adjacentBuilding) {
         if (coins >= getBuildingCost(choice)) {
           placeBuilding(tile, id);
         } else {
           alert("Not enough coins to place a building!");
         }
       } else {
-        // Check if the tile is adjacent to an existing building
-        const adjacentTiles = getAdjacentTiles(id);
-        let adjacentBuilding = false;
-        for (const adjTileId of adjacentTiles) {
-          if (built[adjTileId]) {
-            adjacentBuilding = true;
-            break;
-          }
-        }
-        if (adjacentBuilding) {
-        if (coins >= getBuildingCost(choice)) {
-            placeBuilding(tile, id);
-          } else {
-            alert("Not enough coins to place a building!");
-          }
-        } else {
-          alert("You can only place buildings adjacent to existing ones.");
-        }
+        alert("You can only place buildings adjacent to existing ones.");
       }
     }
   }
+}
 
-// Helper function to get adjacent tile IDs
+
 function getAdjacentTiles(id) {
     const numericId = parseInt(id, 10);
     const row = Math.floor((numericId - 1) / 20);
@@ -92,19 +96,25 @@ function getAdjacentTiles(id) {
     return adjacentTiles;
 }
 
-// Helper function to place a building on a tile
+
 function placeBuilding(tile, id) {
+  const cost = getBuildingCost(choice);
+
+  if (coins >= cost) {  
     const html = `<img src="./images/${choice.toLowerCase()}-tiny.svg" />`;
     tile.insertAdjacentHTML("afterbegin", html);
     built[id] = choice;
-    coins -= getBuildingCost(choice); //deduct coins
-    updateCoinDisplay(); //update coin display
+    coins -= cost;  
+    updateCoinDisplay();
     calculateScore();
+  } else {
+    alert("Not enough coins to place a building!");
+  }
 }
 
-// helper function to get the cost of a building
+
 function getBuildingCost(buildingType) {
-    // return the cost of the building based on its type
+    
     switch (buildingType) {
         case "Residential":
             return 1;
