@@ -43,7 +43,9 @@ function getId(id) {
       coins -= 1;
       updateCoinDisplay();
     } else {
-      alert("Not enough coins to remove building!");
+      setTimeout(() => {
+        location.href = "./end-screen(a).html";
+      }, 1000);
     }
   } else {
     
@@ -52,7 +54,9 @@ function getId(id) {
       if (coins >= getBuildingCost(choice)) {
         placeBuilding(tile, id);
       } else {
-        alert("Not enough coins to place a building!");
+        setTimeout(() => {
+          location.href = "./end-screen(a).html";
+        }, 1000);
       }
     } else {
       
@@ -68,7 +72,9 @@ function getId(id) {
         if (coins >= getBuildingCost(choice)) {
           placeBuilding(tile, id);
         } else {
-          alert("Not enough coins to place a building!");
+          setTimeout(() => {
+            location.href = "./end-screen(a).html";
+          }, 1000);
         }
       } else {
         alert("You can only place buildings adjacent to existing ones.");
@@ -284,11 +290,13 @@ function calculateScore() {
   }
   points += tempPoints;
 
-  score.innerHTML = `Score: ` + points + ``;
+
+  score.innerHTML = `Your Score: ` + points + ``; 
+
 
   if (coins == 0) {
     setTimeout(() => {
-      location.href = "./end-screen.html";
+      location.href = "./end-screen(a).html";
     }, 1000);
   }
 }

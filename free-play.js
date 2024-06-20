@@ -1,6 +1,7 @@
 const buildings = ["Residential", "Road", "Industry", "Park", "Commercial"];
 let choice;
 let built = {};
+let coins = 1
 
 const building1 = document.getElementById("building1");
 const html1 = `<img src="./images/residential.svg" />
@@ -117,5 +118,11 @@ function getId(id) {
         drawBoard();
     }
 }
+
+if (coins == 0) {
+    setTimeout(() => {
+      location.href = "./end-screen.html";
+    }, 1000);
+  }
 drawBoard();
 
