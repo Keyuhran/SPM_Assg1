@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./styles.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div class="es-header">
+        <p>Game Over!</p>
+    </div>
+    <div class="large-rectangle">
+        <div class="es-score">
+            <span id="score">Your Score: </span>
+          </div>
+        <div class="inner-rectangle" onclick="goToArcade()">
+            <p class="ir-text">TRY AGAIN</p>
+        </div>
+        <div class="inner-rectangle" onclick="goToMainMenu()">
+            <p class="ir-text">MAIN MENU</p>
+        </div>
+        <div class="inner-rectangle" onclick="goToLeaderboard()">
+            <p class="ir-text">LEADERBOARD</p>
+        </div>
+        <div class="inner-rectangle" onclick="exit()">
+            <p class="ir-text">QUIT GAME</p>
+        </div>
+    </div>
+</body>
+<script src="./index.js"></script>
+<script src="./arcade.js"></script>
+</html>

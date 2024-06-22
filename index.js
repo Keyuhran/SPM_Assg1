@@ -14,6 +14,10 @@ function goToLoadGame() {
     window.location.href = "load-game.html";
 }
 
+function goToMainMenu() {
+    window.location.href = "index.html";
+}
+
 function exit() {
     window.close();
 }
