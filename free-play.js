@@ -125,6 +125,7 @@ function getId(id) {
     }
     updateProfitDisplay();
     updateUpkeepDisplay();
+    calculateScore();
 }
 
 function updateCoinDisplay() {
@@ -380,6 +381,7 @@ function placeBuilding(tile, id) {
   
   
     score.innerHTML = `Your Score: ` + points + ``; 
+    console.log(points);
   
   
     if (coins == 0) {
