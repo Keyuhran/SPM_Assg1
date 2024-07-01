@@ -3,9 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./styles.css" rel="stylesheet">
     <title>Document</title>
 </head>
-<body>
-    
+<body class="flex flex-col h-100vh m-150">
+    <div class="flex justify-center items-center bg-red h-30p">
+        <div class="flex flex-col h-100p w-20p justify-center items-center">
+            <button id="building1" class="w-100p h-100p"></button>
+        </div>
+        <div class="flex flex-col h-100p w-20p justify-center items-center">
+            <button id="building2" class="w-100p h-100p"></button>
+        </div>
+        <div class="flex flex-col h-100p w-20p justify-center items-center">
+            <button id="building3" class="w-100p h-100p"></button>
+        </div>
+        <div class="flex flex-col h-100p w-20p justify-center items-center">
+            <button id="building4" class="w-100p h-100p"></button>
+        </div>
+        <div class="flex flex-col h-100p w-20p justify-center items-center">
+            <button id="building5" class="w-100p h-100p"></button>
+        </div>
+    </div>
+    <div class="flex w-100p justify-center">
+        <div id="board" class="flex flex-col w-70p bg-blue p-10 h-100vh justify-center items-center">
+        
+        </div>
+    </div>
+    <div class="flex justify-end mr-60 mb-60 gap-50">
+        <button class="button-2">Save Game</button>
+        <button id="exitButton" class="button-1">Exit Game</button>
+        <div id="coin-display">Coins: Infinity</div>
+        <div id="profit-display">Profit: 0</div>
+        <div id="upkeep-display">Upkeep: 0</div>
+        <div id="score">Score: 0</div>
+    </div>
 </body>
+<script src="./free-play.js"></script>
 </html>

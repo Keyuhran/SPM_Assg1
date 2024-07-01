@@ -4,95 +4,315 @@ const buildings = ["Residential", "Road", "Industry", "Park", "Commercial"];
 let selectedBuildings = [];
 let built = {};
 let turnCounter = 0;
-let choice = "Residential";
+let coins = 16;
+let choice;
 
 for (let i = 0; i < 2; i++) {
     let random = Math.floor(Math.random() * (5 - i));
     selectedBuildings.push(buildings[random]);
     buildings.splice(random, 1);
-    console.log(buildings);
     if (i == 0) {
         const building1 = document.getElementById("building1");
-        if (selectedBuildings[0] == "Residential") {
-            const html = `<img src="./images/residential.svg" />
-                        <h1 class="text-center">Residential</h1>`;
-            building1.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[0] == "Road") {
-            const html = `<img src="./images/road.svg" />
-                        <h1 class="text-center">Road</h1>`;
-            building1.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[0] == "Industry") {
-            const html = `<img src="./images/industry.svg" />
-                        <h1 class="text-center">Industry</h1>`;
-            building1.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[0] == "Park") {
-            const html = `<img src="./images/park.svg" />
-                        <h1 class="text-center">Park</h1>`;
-            building1.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[0] == "Commercial"){
-            const html = `<img src="./images/commercial.svg" />
-                        <h1 class="text-center">Commercial</h1>`;
-            building1.insertAdjacentHTML("afterbegin", html);
-        }
+        const html = `<img src="./images/${selectedBuildings[0].toLowerCase()}.svg" />
+                      <h1 class="text-center">${selectedBuildings[0]}</h1>`;
+        building1.insertAdjacentHTML("afterbegin", html);
+        building1.addEventListener("click", function() {
+          choice = selectedBuildings[0];
+        })
     } else {
         const building2 = document.getElementById("building2");
-        if (selectedBuildings[1] == "Residential") {
-            const html = `<img src="./images/residential.svg" />
-                        <h1 class="text-center">Residential</h1>`;
-            building2.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[1] == "Road") {
-            const html = `<img src="./images/road.svg" />
-                        <h1 class="text-center">Road</h1>`;
-            building2.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[1] == "Industry") {
-            const html = `<img src="./images/industry.svg" />
-                        <h1 class="text-center">Industry</h1>`;
-            building2.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[1] == "Park") {
-            const html = `<img src="./images/park.svg" />
-                        <h1 class="text-center">Park</h1>`;
-            building2.insertAdjacentHTML("afterbegin", html);
-        } else if (selectedBuildings[1] == "Commercial") {
-            const html = `<img src="./images/commercial.svg" />
-                        <h1 class="text-center">Commercial</h1>`;
-            building2.insertAdjacentHTML("afterbegin", html);
-        }
+        const html = `<img src="./images/${selectedBuildings[1].toLowerCase()}.svg" />
+                      <h1 class="text-center">${selectedBuildings[1]}</h1>`;
+        building2.insertAdjacentHTML("afterbegin", html);
+        building2.addEventListener("click", function() {
+          choice = selectedBuildings[1];
+        })
     }
 }
-
-console.log(selectedBuildings);
-
-
 
 function getId(id) {
-    const tile = document.getElementById(id);
-    turnCounter++;
-    if (tile.childElementCount > 0) {
-        tile.removeChild(tile.firstElementChild);
-        delete built[id];
-    } else if (choice == "Residential") {
-        const html = `<img src="./images/residential-tiny.svg" />`;
-        tile.insertAdjacentHTML("afterbegin", html);
-        built[id] = "Residential";
-    } else if (choice == "Road") {
-        const html = `<img src="./images/road-tiny.svg" />`;
-        tile.insertAdjacentHTML("afterbegin", html);
-        built[id] = "Road";
-    } else if (choice == "Industry") {
-        const html = `<img src="./images/industry-tiny.svg" />`;
-        tile.insertAdjacentHTML("afterbegin", html);
-        built[id] = "Industry";
-    } else if (choice == "Park") {
-        const html = `<img src="./images/park-tiny.svg" />`;
-        tile.insertAdjacentHTML("afterbegin", html);
-        built[id] = "Park";
-    } else if (choice == "Commercial") {
-        const html = `<img src="./images/commercial-tiny.svg" />`;
-        tile.insertAdjacentHTML("afterbegin", html);
-        built[id] = "Commercial";
+  const tile = document.getElementById(id);
+  turnCounter++;
+
+  
+  if (tile.childElementCount > 0) {
+    const buildingType = built[id];
+    if (coins >= 1) {  
+      tile.removeChild(tile.firstElementChild);
+      delete built[id];
+      coins -= 1;
+      updateCoinDisplay();
+    } else {
+      setTimeout(() => {
+        location.href = "./end-screen(a).html";
+      }, 1000);
     }
-    console.log(built);
+  } else {
+    
+    if (Object.keys(built).length === 0) {
+      
+      if (coins >= getBuildingCost(choice)) {
+        placeBuilding(tile, id);
+      } else {
+        setTimeout(() => {
+          location.href = "./end-screen(a).html";
+        }, 1000);
+      }
+    } else {
+      
+      const adjacentTiles = getAdjacentTiles(id);
+      let adjacentBuilding = false;
+      for (const adjTileId of adjacentTiles) {
+        if (built[adjTileId]) {
+          adjacentBuilding = true;
+          break;
+        }
+      }
+      if (adjacentBuilding) {
+        if (coins >= getBuildingCost(choice)) {
+          placeBuilding(tile, id);
+        } else {
+          setTimeout(() => {
+            location.href = "./end-screen(a).html";
+          }, 1000);
+        }
+      } else {
+        alert("You can only place buildings adjacent to existing ones.");
+      }
+    }
+  }
 }
+
+
+function getAdjacentTiles(id) {
+    const numericId = parseInt(id, 10);
+    const row = Math.floor((numericId - 1) / 20);
+    const col = (numericId - 1) % 20;
+    const adjacentTiles = [];
+
+    // Check top
+    if (row > 0) adjacentTiles.push(numericId - 20);
+    // Check bottom
+    if (row < 19) adjacentTiles.push(numericId + 20);
+    // Check left
+    if (col > 0) adjacentTiles.push(numericId - 1);
+    // Check right
+    if (col < 19) adjacentTiles.push(numericId + 1);
+
+    return adjacentTiles;
+}
+
+
+function placeBuilding(tile, id) {
+  const cost = getBuildingCost(choice);
+
+  if (coins >= cost) {  
+    const html = `<img src="./images/${choice.toLowerCase()}-tiny.svg" />`;
+    tile.insertAdjacentHTML("afterbegin", html);
+    built[id] = choice;
+    coins -= cost;  
+    updateCoinDisplay();
+    calculateScore();
+  } else {
+    alert("Not enough coins to place a building!");
+  }
+}
+
+
+function getBuildingCost(buildingType) {
+    
+    switch (buildingType) {
+        case "Residential":
+            return 1;
+        case "Road":
+            return 1;
+        case "Industry":
+            return 1;
+        case "Park":
+            return 1;
+        case "Commercial":
+            return 1;
+        default:
+            return 0;
+    }
+  }
+
+var points = 0;
+const score = document.getElementById("score");
+function calculateScore() {
+  let tempPoints = 0;
+  for (let i = 0; i < Object.keys(built).length; i++) {
+    let tempPoints2 = 0;
+    let tileId = parseInt(Object.keys(built)[i]);
+    let type = Object.values(built)[i]
+    if (type == "Residential") {
+      if (Object.keys(built).includes((tileId + 20).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 20] == "Commercial") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 20] == "Park") {
+          tempPoints2 += 2;
+        } else if (built[tileId + 20] == "Industry") {
+          tempPoints2 += 1;
+          tempPoints += tempPoints2;
+          continue;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 20).toString()) == true) {
+        if (built[tileId - 20] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 20] == "Commercial") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 20] == "Park") {
+          tempPoints2 += 2;
+        } else if (built[tileId - 20] == "Industry") {
+          tempPoints2 += 1;
+          tempPoints += tempPoints2;
+          continue;
+        }
+      }
+      if (Object.keys(built).includes((tileId + 1).toString()) == true) {
+        if (built[tileId + 1] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 1] == "Commercial") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 1] == "Park") {
+          tempPoints2 += 2;
+        } else if (built[tileId + 1] == "Industry") {
+          tempPoints2 += 1;
+          tempPoints += tempPoints2;
+          continue;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 1).toString()) == true) {
+        if (built[tileId - 1] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 1] == "Commercial") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 1] == "Park") {
+          tempPoints2 += 2;
+        } else if (built[tileId - 1] == "Industry") {
+          tempPoints2 += 1;
+          tempPoints += tempPoints2;
+          continue;
+        }
+      }
+    } else if (type == "Industry") {
+      tempPoints2 += Object.values(built).filter(x => x == "Industry").length;
+      if (Object.keys(built).includes((tileId + 20).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 20).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId + 1).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 1).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        }
+      }
+    } else if (type == "Commercial") {
+      if (Object.keys(built).includes((tileId + 20).toString()) == true) {
+        if (built[tileId + 20] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 20] == "Commercial") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 20).toString()) == true) {
+        if (built[tileId - 20] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 20] == "Commercial") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId + 1).toString()) == true) {
+        if (built[tileId + 1] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId + 1] == "Commercial") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 1).toString()) == true) {
+        if (built[tileId - 1] == "Residential") {
+          tempPoints2 += 1;
+        } else if (built[tileId - 1] == "Commercial") {
+          tempPoints2 += 1;
+        }
+      }
+    } else if (type == "Park") {
+      if (Object.keys(built).includes((tileId + 20).toString()) == true) {
+        if (built[tileId + 20] == "Park") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 20).toString()) == true) {
+        if (built[tileId - 20] == "Park") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId + 1).toString()) == true) {
+        if (built[tileId + 1] == "Park") {
+          tempPoints2 += 1;
+        }
+      }
+      if (Object.keys(built).includes((tileId - 1).toString()) == true) {
+        if (built[tileId - 1] == "Park") {
+          tempPoints2 += 1;
+        }
+      }
+    } else if (type == "Road") {
+      tempPoints2 += 1;
+      for (let i = 0; i < 20; i++) {
+        if (Object.keys(built).includes((tileId + i + 1).toString()) == true) {
+          if (built[tileId + 1] == "Road") {
+            tempPoints2 += 1;
+          }
+        }
+
+        if (Object.keys(built).includes((tileId - i - 1).toString()) == true) {
+          if (built[tileId - 1] == "Road") {
+            tempPoints2 += 1;
+          }
+        }
+      }
+    }
+    tempPoints += tempPoints2;
+  }
+  points += tempPoints;
+
+
+  score.innerHTML = `Your Score: ` + points + ``; 
+
+
+  if (coins == 0) {
+    setTimeout(() => {
+      location.href = "./end-screen(a).html";
+    }, 1000);
+  }
+}
+  
+// helper function to update the coin display on the main page
+function updateCoinDisplay() {
+    const coinDisplay = document.getElementById("coin-display");
+    coinDisplay.textContent = `Coins: ${coins}`;
+}
+
+function exitGame() {
+  location.href = "./index.html";
+}
+
+const exitButton = document.getElementById("exitButton");
+exitButton.addEventListener("click", exitGame);
 
 for (let i = 1; i < 21; i++) {
     const tileHTML1 = `<button id="` + i * 1 + `" class="w-4p bg-green m-5 rounded-5 border-0" onclick="getId(this.id)"></button>`;
@@ -154,4 +374,5 @@ for (let i = 1; i < 21; i++) {
 
     const tileHTML20 = `<button id="` + (i * 1 + 380) + `" class="w-4p bg-green m-5 rounded-5 border-0" onclick="getId(this.id)"></button>`;
     document.getElementById("r20").insertAdjacentHTML("beforeend", tileHTML20);
-}
+} 
+
