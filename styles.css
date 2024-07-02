@@ -311,3 +311,46 @@ color: #D66D50;
 .button-container {
     margin-top: 100px; /* Added margin to push buttons down */
 }
+.es-header {
+    color: #015A6C;
+    font-weight:900;
+    font-size: 55px;
+    position:absolute;
+    left: 50%;
+    transform: translate(-50%)
+}
+.large-rectangle {
+    width: 50%;
+    height: 70%;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    background-color: #98E3DB;
+    border: 2px solid #33767B; 
+}
+
+.inner-rectangle {
+    width: 70%;
+    height: 12%;
+    position:relative;
+    left: 15%;
+    background-color: #015A6C; 
+    border-radius: 10px;
+  }
+
+  .ir-text {
+    color: #FFFFFF;
+    font-size: 40px;
+    font-weight: bolder;
+    text-align: center; 
+    position: relative;
+  }
+  .es-score {
+    color: #015A6C;
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center; 
+    position: relative;
+  }
