@@ -311,8 +311,14 @@ function exitGame() {
   location.href = "./index.html";
 }
 
+function saveGame() {
+  location.href = "./save-game.html";
+}
+
 const exitButton = document.getElementById("exitButton");
 exitButton.addEventListener("click", exitGame);
+const saveButton = document.getElementById("saveButton");
+saveButton.addEventListener("click", saveGame);
 
 for (let i = 1; i < 21; i++) {
     const tileHTML1 = `<button id="` + i * 1 + `" class="w-4p bg-green m-5 rounded-5 border-0" onclick="getId(this.id)"></button>`;

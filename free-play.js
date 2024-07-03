@@ -386,7 +386,7 @@ function placeBuilding(tile, id) {
   
     if (coins == 0) {
       setTimeout(() => {
-        location.href = "./end-screen(a).html";
+        location.href = "./end-screen(fp).html";
       }, 1000);
     }
   }
@@ -400,9 +400,15 @@ function placeBuilding(tile, id) {
   function exitGame() {
     location.href = "./index.html";
   }
+
+  function saveGame() {
+    location.href = "./save-game.html";
+  }
   
   const exitButton = document.getElementById("exitButton");
   exitButton.addEventListener("click", exitGame);
+  const saveButton = document.getElementById("saveButton");
+  saveButton.addEventListener("click", saveGame);
 
 drawBoard();
 
