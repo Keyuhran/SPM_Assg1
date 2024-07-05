@@ -3,9 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Leaderboard</title>
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js"></script>
+    <!-- Include your custom JS file -->
+    <script type="module" src="leaderboard.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    
+<body class="leaderboard-body">
+    <header>
+        <h1 class="leaderboard-title">Leaderboard</h1>
+    </header>
+    <div class="leaderboard-container">
+        <div id="freeplay-leaderboard">
+            <h2 class="leaderboard-subtitle">Free Play Top Scores</h2>
+            <table id="freeplay-table" class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th class="leaderboard-th">Pos</th>
+                        <th class="leaderboard-th">Name</th>
+                        <th class="leaderboard-th">Score</th>
+                        <th class="leaderboard-th">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="freeplay-scores"></tbody>
+            </table>
+        </div>
+        <div id="arcade-leaderboard">
+            <h2 class="leaderboard-subtitle">Arcade Top Scores</h2>
+            <table id="arcade-table" class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th class="leaderboard-th">Pos</th>
+                        <th class="leaderboard-th">Name</th>
+                        <th class="leaderboard-th">Score</th>
+                        <th class="leaderboard-th">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="arcade-scores"></tbody>
+            </table>
+        </div>
+        <div class="leaderboard-your-score">
+            <h2 class="leaderboard-subtitle">Your Score:</h2>
+            <table id="your-score-table" class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th class="leaderboard-th">Pos</th>
+                        <th class="leaderboard-th">Name</th>
+                        <th class="leaderboard-th">Score</th>
+                        <th class="leaderboard-th">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="your-score"></tbody>
+            </table>
+        </div>
+        <div class="leaderboard-button-container">
+            <button class="leaderboard-button leaderboard-button-1">Edit My Name</button>
+            <button class="leaderboard-button leaderboard-button-2">Return to Menu</button>
+        </div>
+    </div>
 </body>
 </html>
