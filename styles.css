@@ -911,16 +911,17 @@ color: #D66D50;
     left: 15%;
     background-color: #015A6C; 
     border-radius: 10px;
-  }
+}
 
-  .ir-text {
+.ir-text {
     color: #FFFFFF;
     font-size: 40px;
     font-weight: bolder;
     text-align: center; 
     position: relative;
-  }
-  .es-score {
+}
+
+.es-score {
     color: #015A6C;
     font-size: 50px;
     font-weight: bolder;
