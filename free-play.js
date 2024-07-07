@@ -4,6 +4,7 @@ let built = {};
 let coins = Infinity;
 let profit = 0;
 let upkeep = 0;
+let lossCounter = 0;
 
 const building1 = document.getElementById("building1");
 const html1 = `<img src="./images/residential.svg" />
@@ -126,6 +127,15 @@ function getId(id) {
     updateProfitDisplay();
     updateUpkeepDisplay();
     calculateScore();
+    if (upkeep > profit) {
+      lossCounter++;
+    } else {
+      lossCounter = 0;
+    }
+
+    if (lossCounter >= 20) {
+      location.href = "./end-screen(fp).html";
+    }
 }
 
 function updateCoinDisplay() {
