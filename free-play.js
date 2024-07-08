@@ -134,7 +134,9 @@ function getId(id) {
     }
 
     if (lossCounter >= 20) {
+      localStorage.setItem("finalScore", points);
       location.href = "./end-screen(fp).html";
+
     }
 }
 

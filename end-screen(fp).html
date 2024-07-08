@@ -12,7 +12,7 @@
     </div>
     <div class="large-rectangle">
         <div class="es-score">
-            <p>Your Score:XXXX</p>
+            <div id="final-score">Your Final Score: <span id="score-display"></span></div>
         </div>
         <div class="inner-rectangle" onclick="goToFreePlay()">
             <p class="ir-text">TRY AGAIN</p>
@@ -28,5 +28,11 @@
         </div>
     </div>
 </body>
+<script>
+    const scoreDisplay = document.getElementById("score-display")
+    const finalScore = localStorage.getItem("finalScore")
+    scoreDisplay.textContent = finalScore;
+   </script>
 <script src="./index.js"></script>
+<script src="./free-play.js"></script>
 </html>
