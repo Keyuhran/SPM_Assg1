@@ -293,10 +293,13 @@ function calculateScore() {
 
   score.innerHTML = `Your Score: ` + points + ``; 
 
+  
+
 
   if (coins == 0) {
+    localStorage.setItem("finalScore", points);
     setTimeout(() => {
-      location.href = "./end-screen(a).html";
+      location.href = "./end-screen(a).html?score=" + points;
     }, 1000);
   }
 }
