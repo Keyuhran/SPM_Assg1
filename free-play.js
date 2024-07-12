@@ -5,6 +5,7 @@ let coins = Infinity;
 let profit = 0;
 let upkeep = 0;
 let lossCounter = 0;
+let expansionCount = 0;
 
 const building1 = document.getElementById("building1");
 const html1 = `<img src="./images/residential.svg" />
@@ -82,47 +83,55 @@ function getId(id) {
         console.log(built);
     }
 
-    if (id >= 1 && id <= rows) {
-        rows += 10;
-        let newBuilt = {};
-        for (let i = 0; i < Object.keys(built).length; i++) {
-            let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
-            newBuilt[newId] = Object.values(built)[i];
-        }
-        built = newBuilt;
-        drawBoard();
-    } else if (id % rows == 0) {
-        rows += 10;
-        let newBuilt = {};
-        for (let i = 0; i < Object.keys(built).length; i++) {
-            if (Object.keys(built)[i] % (rows - 10) == 0) {
-                let newId = (Math.floor((Object.keys(built)[i] - 1) / (rows - 10)) + 5) * rows + 5 + ((Object.keys(built)[i] - 1) % (rows - 10)) + 1;
-                newBuilt[newId] = Object.values(built)[i];
-            } else {
-                let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
-                newBuilt[newId] = Object.values(built)[i];
-            }
-        }
-        built = newBuilt;
-        drawBoard();
-    } else if (id % rows == 1) {
-        rows += 10;
-        let newBuilt = {};
-        for (let i = 0; i < Object.keys(built).length; i++) {
-            let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
-            newBuilt[newId] = Object.values(built)[i];
-        }
-        built = newBuilt;
-        drawBoard();
-    } else if (id >= (rows - 1) * rows && id <= rows * rows) {
-        rows += 10;
-        let newBuilt = {};
-        for (let i = 0; i < Object.keys(built).length; i++) {
-            let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
-            newBuilt[newId] = Object.values(built)[i];
-        }
-        built = newBuilt;
-        drawBoard();
+    if (expansionCount < 2) {
+      if (id >= 1 && id <= rows) {
+          rows += 10;
+          let newBuilt = {};
+          for (let i = 0; i < Object.keys(built).length; i++) {
+              let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
+              newBuilt[newId] = Object.values(built)[i];
+          }
+          built = newBuilt;
+          expansionCount++;
+          drawBoard();
+      } else if (id % rows == 0) {
+          rows += 10;
+          let newBuilt = {};
+          for (let i = 0; i < Object.keys(built).length; i++) {
+              if (Object.keys(built)[i] % (rows - 10) == 0) {
+                  let newId = (Math.floor((Object.keys(built)[i] - 1) / (rows - 10)) + 5) * rows + 5 + ((Object.keys(built)[i] - 1) % (rows - 10)) + 1;
+                  newBuilt[newId] = Object.values(built)[i];
+              } else {
+                  let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
+                  newBuilt[newId] = Object.values(built)[i];
+              }
+          }
+          built = newBuilt;
+          expansionCount++;
+          drawBoard();
+      } else if (id % rows == 1) {
+          rows += 10;
+          let newBuilt = {};
+          for (let i = 0; i < Object.keys(built).length; i++) {
+              let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
+              newBuilt[newId] = Object.values(built)[i];
+          }
+          built = newBuilt;
+          expansionCount++;
+          drawBoard();
+      } else if (id >= (rows - 1) * rows && id <= rows * rows) {
+          rows += 10;
+          let newBuilt = {};
+          for (let i = 0; i < Object.keys(built).length; i++) {
+              let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
+              newBuilt[newId] = Object.values(built)[i];
+          }
+          built = newBuilt;
+          expansionCount++;
+          drawBoard();
+      }
+    } else {
+      drawBoard();
     }
     updateProfitDisplay();
     updateUpkeepDisplay();
