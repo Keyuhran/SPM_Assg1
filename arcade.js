@@ -1,3 +1,16 @@
+var firebaseConfig = {
+  apiKey: "AIzaSyBWMWesdJBRs64nInlQotb3BGOPVFzLfEg",
+  authDomain: "ngeeanncity-11800.firebaseapp.com",
+  projectId: "ngeeanncity-11800",
+  storageBucket: "ngeeanncity-11800.appspot.com",
+  messagingSenderId: "327848331733",
+  appId: "1:327848331733:web:18c968969b91beeebfd55c",
+  measurementId: "G-DB9D997LYY"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 const board = document.getElementById("board");
 
 const buildings = ["Residential", "Road", "Industry", "Park", "Commercial"];
@@ -28,6 +41,43 @@ for (let i = 0; i < 2; i++) {
           choice = selectedBuildings[1];
         })
     }
+}
+
+function initializeNewGame() {
+  selectedBuildings = [];
+  built = {};
+  turnCounter = 0;
+  coins = 16;
+  choice = null;
+  points = 0;
+  
+  // Randomly select two buildings
+  const remainingBuildings = [...buildings];
+  for (let i = 0; i < 2; i++) {
+      let random = Math.floor(Math.random() * (5 - i));
+      selectedBuildings.push(remainingBuildings[random]);
+      remainingBuildings.splice(random, 1);
+  }
+  
+  // Update UI with selected buildings
+  const building1 = document.getElementById("building1");
+  const building1HTML = `<img src="./images/${selectedBuildings[0].toLowerCase()}.svg" />
+                         <h1 class="text-center">${selectedBuildings[0]}</h1>`;
+  building1.innerHTML = building1HTML;
+  building1.addEventListener("click", function() {
+      choice = selectedBuildings[0];
+  });
+
+  const building2 = document.getElementById("building2");
+  const building2HTML = `<img src="./images/${selectedBuildings[1].toLowerCase()}.svg" />
+                         <h1 class="text-center">${selectedBuildings[1]}</h1>`;
+  building2.innerHTML = building2HTML;
+  building2.addEventListener("click", function() {
+      choice = selectedBuildings[1];
+  });
+
+  updateCoinDisplay();
+  calculateScore();
 }
 
 function getId(id) {
@@ -385,3 +435,35 @@ for (let i = 1; i < 21; i++) {
     document.getElementById("r20").insertAdjacentHTML("beforeend", tileHTML20);
 } 
 
+function loadGame() {
+  db.collection("games").doc("your_game_id").get()
+    .then((doc) => {
+      if (doc.exists) {
+        const gameState = doc.data();
+        built = gameState.built;
+        coins = gameState.coins;
+        points = gameState.points;
+        turnCounter = gameState.turnCounter;
+        choice = gameState.choice;
+        selectedBuildings = gameState.selectedBuildings;
+
+        updateCoinDisplay();
+        calculateScore();
+        
+        for (const id in built) {
+          const tile = document.getElementById(id);
+          placeBuilding(tile, id, built[id]);
+        }
+      } else {
+        console.log("No game state found! Starting a new game.");
+        initializeNewGame();
+      }
+    })
+    .catch((error) => {
+      console.error("Error loading game state: ", error);
+      console.log("Starting a new game due to error.");
+      initializeNewGame();
+    });
+}
+
+window.onload = loadGame;
