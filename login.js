@@ -1,5 +1,5 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js'
-import { getAuth, signInWithEmailAndPassword  } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js'
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword  } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBWMWesdJBRs64nInlQotb3BGOPVFzLfEg",
@@ -37,6 +37,7 @@ document.getElementById('loginButton').addEventListener('click', function(event)
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
+          localStorage.setItem("uid", user.uid);
           window.location.href = 'index.html';
           // ...
         })
