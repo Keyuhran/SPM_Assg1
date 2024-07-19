@@ -13,7 +13,7 @@
     <div class="flex p-150 h-100vh justify-center button-container">
         <div class="flex flex-col w-70p h-80p">
             <div class="flex w-100p h-50p">
-                <div class="w-50p bg-arcade m-10 rounded-30" onclick="goToArcade()">
+                <div class="w-50p bg-arcade m-10 rounded-30" id="navArcade">
                     <div class="flex flex-col m-30 ml-60">
                         <h1>New Arcade Game Mode</h1>
                         <div class="visuals">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-50p bg-freeplay m-10 rounded-30" onclick="goToFreePlay()">
+                <div class="w-50p bg-freeplay m-10 rounded-30" id="navFreePlay">
                     <div class="flex flex-col m-30 ml-60">
                         <h1>New Free Play Game</h1>
                         <div class="visuals-freeplay">
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="flex h-32p w-100p">
-                <div class="w-70p bg-loadgame m-10 rounded-30" onclick="goToLoadGame()">
+                <div class="w-70p bg-loadgame m-10 rounded-30" id="navLoad">
                     <div class="flex items-center h-100p ml-60">
                         <h1>Load Saved Game</h1>
                         <div class="visuals-loadgame">
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-30p bg-exit m-10 rounded-30" onclick="exit()">
+                <div class="w-30p bg-exit m-10 rounded-30" id="navExit">
                     <div class="flex h-100p items-center ml-60">
                         <h1>Exit</h1>
                         <div class="visuals-exit">
@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="flex w-20p m-10 h-80p">
-            <div class="w-100p bg-leaderboard h-80p rounded-30" onclick="goToLeaderboard()">
+            <div class="w-100p bg-leaderboard h-80p rounded-30" id="navLeaderboard">
                 <div class="flex flex-col w-80p items-center m-30 ml-50">
                     <h1>View Leaderboard</h1>
                     <div class="visuals-leaderboard">
