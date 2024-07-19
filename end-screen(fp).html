@@ -41,10 +41,15 @@
     highScore = finalScore; // Update highScore variable
     setTimeout(() => {
         Swal.fire({
-            title: "New High Score!",
-            html: '<iframe src="in.html" frameborder="0" width="100%" height="100%"></iframe>',
-            showCloseButton: true,
+        title: "New High Score!",
+         html: `
+         <div>Score: ${finalScore}</div>
+         <iframe src="in.html" frameborder="0" width="100%" height="100%"></iframe>
+         `,
+         showCloseButton: true,
         });
+        scoreDisplay.textContent = finalScore;
+        highScoreDisplay.textContent = highScore; // Update high score display
     }, 0);
 } else {
     highScore = parseInt(highScore);
@@ -52,11 +57,15 @@
     if (parseInt(finalScore) > highScore) {
         localStorage.setItem("highScore", finalScore);
         highScore = finalScore; // Update highScore variable
-        Swal.fire({
-            title: "New High Score!",
-            html: '<iframe src="in.html" frameborder="0" width="100%" height="100%"></iframe>',
-            showCloseButton: true,
-        });
+        setTimeout(() => {
+            Swal.fire({
+                title: "New High Score!",
+                html: '<iframe src="in.html" frameborder="0" width="100%" height="100%"></iframe>',
+                showCloseButton: true,
+            });
+            scoreDisplay.textContent = finalScore;
+            highScoreDisplay.textContent = highScore; // Update high score display
+        }, 0);
     }
 }
 
