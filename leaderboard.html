@@ -3,9 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="./styles.css" rel="stylesheet">
+    <title>Ngee Ann City - Leaderboard</title>
 </head>
 <body>
-    
+    <header>
+        <h1 class="title">Ngee Ann City</h1>
+    </header>
+    <div class="flex p-150 h-100vh flex-col items-center">
+        <div class="leaderboard-title">Leaderboard</div>
+        <div class="leaderboard-container">
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Alice</td>
+                        <td>12345</td>
+                        <td>2023-01-01</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Bob</td>
+                        <td>12000</td>
+                        <td>2023-01-02</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Charlie</td>
+                        <td>11500</td>
+                        <td>2023-01-03</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>David</td>
+                        <td>11000</td>
+                        <td>2023-01-04</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Eve</td>
+                        <td>10500</td>
+                        <td>2023-01-05</td>
+                    </tr>
+                    <!-- Add more rows as needed for scrolling -->
+                </tbody>
+            </table>
+        </div>
+        <div class="your-score-container">
+            <p>Your Score</p>
+            <table class="leaderboard-table">
+                <tbody>
+                    <tr>
+                        <td>6</td>
+                        <td>Player</td>
+                        <td>10000</td>
+                        <td>2023-01-06</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="button-container">
+            <button class="leaderboard-button" onclick="editName()">Edit My Name</button>
+            <button class="leaderboard-button" onclick="returnToMenu()">Return to Menu</button>
+        </div>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
