@@ -1,8 +1,8 @@
-/* // Import the functions you need from the SDKs you need
+// Imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js";
 
-// Your web app's Firebase configuration
+// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBWMWesdJBRs64nInlQotb3BGOPVFzLfEg",
     authDomain: "ngeeanncity-11800.firebaseapp.com",
@@ -16,7 +16,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app); */
+const auth = getAuth(app);
 
 const board = document.getElementById("board");
 
@@ -27,7 +27,7 @@ let turnCounter = 0;
 let coins = 16;
 let choice;
 
-/* // Authentication listener
+// Authentication listener
 auth.onAuthStateChanged(user => {
   if (user) {
       console.log("User is signed in:", user);
@@ -102,7 +102,7 @@ function updateUI() {
   }
   // Update the score display
   calculateScore();
-} */
+}
 
 
 for (let i = 0; i < 2; i++) {
