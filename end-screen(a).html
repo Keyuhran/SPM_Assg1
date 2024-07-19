@@ -14,16 +14,16 @@
         <div class="es-score">
             <div id="final-score">Your Final Score: <span id="score-display"></span></div>
         </div>
-        <div class="inner-rectangle" onclick="goToArcade()">
+        <div class="inner-rectangle" id="esArcade">
             <p class="ir-text">TRY AGAIN</p>
         </div>
-        <div class="inner-rectangle" onclick="goToMainMenu()">
+        <div class="inner-rectangle" id="esMainMenu">
             <p class="ir-text">MAIN MENU</p>
         </div>
-        <div class="inner-rectangle" onclick="goToLeaderboard()">
+        <div class="inner-rectangle" id="esLeaderboard">
             <p class="ir-text">LEADERBOARD</p>
         </div>
-        <div class="inner-rectangle" onclick="exit()">
+        <div class="inner-rectangle" id="esExit">
             <p class="ir-text">QUIT GAME</p>
         </div>
     </div>
@@ -33,6 +33,5 @@
     const finalScore = localStorage.getItem("finalScore")
     scoreDisplay.textContent = finalScore;
    </script>
-<script src="./index.js"></script>
-<script src="./arcade.js"></script>
+<script src="./end-screen.js"></script>
 </html>

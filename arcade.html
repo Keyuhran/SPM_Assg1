@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./styles.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Arcade</title>
+    <!-- The core Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 </head>
 <body>
     <div class="flex h-100vh m-150">
@@ -62,7 +65,7 @@
         </div>
     </div>
     <div class="flex justify-end mr-60 mb-60 gap-50">
-        <button class="button-2">Save Game</button>
+        <button id="saveButton" class="button-2">Save Game</button>
         <button id="exitButton" class="button-1">Exit Game</button>
         <div id="coin-display">Coins: 16</div>
         <div id="score">Score: 0</div>
