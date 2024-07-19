@@ -5,76 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./styles.css" rel="stylesheet">
     <title>Ngee Ann City - Leaderboard</title>
+    <title>Leaderboard</title>
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js"></script>
+    <!-- Include your custom JS file -->
+    <script type="module" src="leaderboard.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="leaderboard-body">
     <header>
-        <h1 class="title">Ngee Ann City</h1>
+        <h1 class="leaderboard-title">Leaderboard</h1>
     </header>
-    <div class="flex p-150 h-100vh flex-col items-center">
-        <div class="leaderboard-title">Leaderboard</div>
-        <div class="leaderboard-container">
-            <table class="leaderboard-table">
+    <div class="leaderboard-container">
+        <div id="freeplay-leaderboard">
+            <h2 class="leaderboard-subtitle">Free Play Top Scores</h2>
+            <table id="freeplay-table" class="leaderboard-table">
                 <thead>
                     <tr>
-                        <th>Pos</th>
-                        <th>Name</th>
-                        <th>Score</th>
-                        <th>Date</th>
+                        <th class="leaderboard-th">Pos</th>
+                        <th class="leaderboard-th">Name</th>
+                        <th class="leaderboard-th">Score</th>
+                        <th class="leaderboard-th">Date</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Alice</td>
-                        <td>12345</td>
-                        <td>2023-01-01</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Bob</td>
-                        <td>12000</td>
-                        <td>2023-01-02</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Charlie</td>
-                        <td>11500</td>
-                        <td>2023-01-03</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>David</td>
-                        <td>11000</td>
-                        <td>2023-01-04</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Eve</td>
-                        <td>10500</td>
-                        <td>2023-01-05</td>
-                    </tr>
-                    <!-- Add more rows as needed for scrolling -->
-                </tbody>
+                <tbody id="freeplay-scores"></tbody>
             </table>
         </div>
-        <div class="your-score-container">
-            <p>Your Score</p>
-            <table class="leaderboard-table">
-                <tbody>
+        <div id="arcade-leaderboard">
+            <h2 class="leaderboard-subtitle">Arcade Top Scores</h2>
+            <table id="arcade-table" class="leaderboard-table">
+                <thead>
                     <tr>
-                        <td>6</td>
-                        <td>Player</td>
-                        <td>10000</td>
-                        <td>2023-01-06</td>
+                        <th class="leaderboard-th">Pos</th>
+                        <th class="leaderboard-th">Name</th>
+                        <th class="leaderboard-th">Score</th>
+                        <th class="leaderboard-th">Date</th>
                     </tr>
-                </tbody>
+                </thead>
+                <tbody id="arcade-scores"></tbody>
             </table>
         </div>
-        <div class="button-container">
-            <button class="leaderboard-button" onclick="editName()">Edit My Name</button>
-            <button class="leaderboard-button" onclick="returnToMenu()">Return to Menu</button>
+        <div class="leaderboard-your-score">
+            <h2 class="leaderboard-subtitle">Your Score:</h2>
+            <table id="your-score-table" class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th class="leaderboard-th">Pos</th>
+                        <th class="leaderboard-th">Name</th>
+                        <th class="leaderboard-th">Score</th>
+                        <th class="leaderboard-th">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="your-score"></tbody>
+            </table>
+        </div>
+        <div class="leaderboard-button-container">
+            <button class="leaderboard-button leaderboard-button-1">Edit My Name</button>
+            <button class="leaderboard-button leaderboard-button-2" id="returnbtn">Return to Menu</button>
         </div>
     </div>
-    <script src="index.js"></script>
 </body>
 </html>

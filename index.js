@@ -14,10 +14,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-await setDoc(doc(db, "users", localStorage.getItem("uid")), {
-    test: "testText",
-});
-
 function goToArcade() {
     window.location.href = "arcade.html";
 }
@@ -34,10 +30,21 @@ function goToLoadGame() {
     window.location.href = "load-game.html";
 }
 
-function goToMainMenu() {
-    window.location.href = "index.html";
-}
-
 function exit() {
     window.close();
 }
+//arcade nav
+const arcade = document.getElementById("navArcade");
+arcade.addEventListener("click", goToArcade);
+//freeplay nav
+const freeplay = document.getElementById("navFreePlay");
+freeplay.addEventListener("click", goToFreePlay);
+//leaderboard nav
+const leaderboard = document.getElementById("navLeaderboard");
+leaderboard.addEventListener("click", goToLeaderboard);
+//load game nav
+const load = document.getElementById("navLoad");
+load.addEventListener("click", goToLoadGame);
+//exit nav
+const exitpage = document.getElementById("navExit");
+exitpage.addEventListener("click", exit);
