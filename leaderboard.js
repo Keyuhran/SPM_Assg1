@@ -64,3 +64,10 @@ async function fetchTopScores(mode, dateField, elementId) {
 // Fetch and display scores for both game modes
 fetchTopScores("FreePlayHS", "freeplayDate", "freeplay-scores");
 fetchTopScores("ArcadeHS", "arcadeDate", "arcade-scores");
+
+function returnToMenu() {
+    location.href = "./index.html";
+}
+
+const returnbtn = document.getElementById("returnbtn");
+returnbtn.addEventListener("click", returnToMenu);
