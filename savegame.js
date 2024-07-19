@@ -19,40 +19,41 @@ const auth = getAuth();
 const db = getFirestore(app);
 
 function saveGameToFirebase() {
-    const saveName = document.getElementById("save-name").value;
-    if (!saveName) {
-        alert("Please enter a name for your save game.");
-        return;
-    }
+  const saveName = document.getElementById("save-name").value;
+  if (!saveName) {
+      alert("Please enter a name for your save game.");
+      return;
+  }
 
-    // Get the game state from localStorage
-    const gameState = JSON.parse(localStorage.getItem("gameState"));
-    if (!gameState) {
-        alert("No game state found.");
-        return;
-    }
+  // Get the game state from localStorage
+  const gameState = JSON.parse(localStorage.getItem("gameState"));
+  if (!gameState) {
+      alert("No game state found.");
+      return;
+  }
 
-    // Get the currently logged-in user
-    const user = auth.currentUser;
-    if (!user) {
-        alert("No user is logged in.");
-        return;
-    }
+  // Get the currently logged-in user
+  const user = auth.currentUser;
+  if (!user) {
+      alert("No user is logged in.");
+      return;
+  }
 
-    const uid = user.uid;
+  const uid = user.uid;
 
-    // Reference to the user's savegames collection
-    const saveGameRef = collection(db, 'savegame', uid, 'savedGames');
+  // Reference to the user's savegames collection
+  const saveGameRef = collection(db, 'savegame', uid, 'savedGames');
 
-    // Save the game state
-    setDoc(doc(saveGameRef, saveName), gameState)
-        .then(() => {
-            alert("Game saved successfully!");
-        })
-        .catch((error) => {
-            console.error("Error saving game: ", error);
-            alert("Failed to save game.");
-        });
+  // Save the game state
+  setDoc(doc(saveGameRef, saveName), gameState)
+      .then(() => {
+          alert("Game saved successfully!");
+          goToMainMenu();
+      })
+      .catch((error) => {
+          console.error("Error saving game: ", error);
+          alert("Failed to save game.");
+      });
 }
 
 document.getElementById("savebutton").addEventListener("click", saveGameToFirebase);
@@ -67,3 +68,7 @@ onAuthStateChanged(auth, (user) => {
         window.location.href = "login.html";
     }
 });
+
+function goToMainMenu() {
+  window.location.href = "./index.html";
+}
