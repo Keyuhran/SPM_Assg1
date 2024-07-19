@@ -414,6 +414,14 @@ function placeBuilding(tile, id) {
   }
 
   function saveGame() {
+    const gameState = {
+      built,
+      lossCounter,
+      profit,
+      upkeep,
+      points
+    };
+    localStorage.setItem("gameState", JSON.stringify(gameState));
     location.href = "./save-game.html";
   }
   
