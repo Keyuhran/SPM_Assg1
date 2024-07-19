@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popup Box Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.all.min.js"></script>
+  </head>
+  <body>
+    <script>
+      Swal.fire({
+        html: `
+            <header>
+                <h1 class="title">Ngee Ann City</h1>
+            </header>
+            <div class="flex p-150 h-100vh justify-center items-center">
+                <div class="input-container">
+                    <h2 class="input-title">Score: ${finalScore}</h2>
+                    <h3 class="input-subtitle">Leaderboard: (feature to input leaderboard position to be implemented later)</h3>
+                    <div class="input-label-container">
+                        <label for="input-name">Name:</label>
+                        <input type="text" id="input-name" class="input-box" />
+                    </div>
+                    <button class="input-button">Enter</button>
+                </div>
+            </div>
+        `,
+        showCloseButton: true,
+      });
+    </script>
+  </body>
+</html>
