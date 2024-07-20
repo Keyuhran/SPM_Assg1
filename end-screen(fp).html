@@ -37,44 +37,48 @@
     let highScore = localStorage.getItem("highScore");
 
     if (!highScore) {
-    localStorage.setItem("highScore", finalScore);
-    highScore = finalScore; // Update highScore variable
-    setTimeout(() => {
-        Swal.fire({
-        title: "New High Score!",
-         html: `
-         <div>Score: ${finalScore}</div>
-         <iframe src="input_name.html" frameborder="0" width="100%" height="100%"></iframe>
-         `,
-         showCloseButton: true,
-        });
-        scoreDisplay.textContent = finalScore;
-        highScoreDisplay.textContent = highScore; // Update high score display
-    }, 0);
-} else {
-    highScore = parseInt(highScore);
-
-    if (parseInt(finalScore) > highScore) {
         localStorage.setItem("highScore", finalScore);
         highScore = finalScore; // Update highScore variable
-        setTimeout(() => {
+        window.highScore = highScore;
+        loadScores(() => {
             Swal.fire({
                 title: "New High Score!",
-                html: '<iframe src="input_name.html" frameborder="0" width="100%" height="100%"></iframe>',
+                html: `
+                    <div>Score: ${finalScore}</div>
+                    <iframe src="input_name.html" frameborder="0" width="100%" height="100%"></iframe>
+                `,
                 showCloseButton: true,
             });
             scoreDisplay.textContent = finalScore;
             highScoreDisplay.textContent = highScore; // Update high score display
-        }, 0);
+        });
+    } else {
+        highScore = parseInt(highScore);
+
+        if (parseInt(finalScore) > highScore) {
+            localStorage.setItem("highScore", finalScore);
+            highScore = finalScore; // Update highScore variable
+            loadScores(() => {
+                Swal.fire({
+                    title: "New High Score!",
+                    html: '<iframe src="input_name.html" frameborder="0" width="100%" height="100%"></iframe>',
+                    showCloseButton: true,
+                });
+                scoreDisplay.textContent = finalScore;
+                highScoreDisplay.textContent = highScore; // Update high score display
+            });
+        }
     }
-}
 
-scoreDisplay.textContent = finalScore;
-highScoreDisplay.textContent = highScore; // Update high score display
+    function loadScores(callback) {
+        // Load scores here
+        //...
+        callback();
+    }
 
-    
-    
-   </script>
+    scoreDisplay.textContent = finalScore;
+    highScoreDisplay.textContent = highScore; // Update high score display
+</script>
 <script src="./end-screen.js"></script>
 <script src="./free-play.js"></script>
 </html>

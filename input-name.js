@@ -20,14 +20,13 @@ const db = getFirestore(app);
 
 // Get the input field and button elements
 const inputField = document.getElementById('input-name');
-const enterButton = document.querySelector('.input-button');
+    
 
 function saveHighScoreToFirebase() {
-  const highScoreInput = document.getElementById("input-name").value;
-  const highScore = parseInt(highScoreInput); // Assuming the input is a numeric value
+const highScore = localStorage.getItem("highScore");
 
   if (!highScore) {
-    alert("Please enter a valid high score.");
+    alert("No valid high score.");
     return;
   }
 
@@ -39,15 +38,17 @@ function saveHighScoreToFirebase() {
   }
 
   const uid = user.uid;
+  const userName = inputField.value.trim();
 
   // Create a new document in the 'highScores' collection
-  const highScoreRef = collection(db, 'highScores', uid, 'scores');
-  const highScoreDocId = `highScore_${highScoreInput}`; // Use a composite key for document ID
+  const highScoreRef = collection(db, 'highScores');
+  const highScoreDocId = `${uid}_${highScore}`; // Use a unique document ID
 
   // Save the high score
   setDoc(doc(highScoreRef, highScoreDocId), {
     score: highScore,
-    timestamp: Date.now()
+    timestamp: Date.now(),
+    userName: userName
   })
     .then(() => {
       alert("High score saved successfully!");
@@ -55,10 +56,9 @@ function saveHighScoreToFirebase() {
       window.location.href = "./index.html";
     })
     .catch((error) => {
-      console.error("Error saving high score: ", error);
+      console.error("Error saving high score:", error);
       alert("Failed to save high score.");
     });
 }
 
-// Add event listeners to the Enter button and input field
-enterButton.addEventListener('click', saveHighScoreToFirebase);
+document.getElementById("input-button").addEventListener("click", saveHighScoreToFirebase);

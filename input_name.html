@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,15 +9,13 @@
 <body>
     <header>
     </header>
-    <div class="flex p-150 h-100vh justify-center items-center">
-        <div class="input-container">
-            <div class="input-label-container">
-                <label for="input-name">Name:</label>
-                <input type="text" id="input-name" class="input-box" />
-            </div>
-            <button class="input-button">Enter</button>
-        </div>
-    </div>
+    <main class="flex flex-col h-100vh justify-center items-center">
+        <section class="input-container p-20">
+            <label for="input-name" class="text-center">Name:</label>
+            <input type="text" id="input-name" class="input-box w-50p p-10" />
+            <button id="highscore-button" class="button-1">OK</button>
+        </section>
+    </main>
     
     <script src="input-name.js"></script>
 </body>
