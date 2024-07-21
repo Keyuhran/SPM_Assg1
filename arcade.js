@@ -1,23 +1,3 @@
-/* / Imports
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js";
-
-// Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyBWMWesdJBRs64nInlQotb3BGOPVFzLfEg",
-    authDomain: "ngeeanncity-11800.firebaseapp.com",
-    projectId: "ngeeanncity-11800",
-    storageBucket: "ngeeanncity-11800.appspot.com",
-    messagingSenderId: "327848331733",
-    appId: "1:327848331733:web:18c968969b91beeebfd55c",
-    measurementId: "G-DB9D997LYY"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app); */
-
 const board = document.getElementById("board");
 
 const buildings = ["Residential", "Road", "Industry", "Park", "Commercial"];
@@ -26,107 +6,82 @@ let built = {};
 let turnCounter = 0;
 let coins = 16;
 let choice;
+let gameType = "Arcade";
 
-/* // Authentication listener
-auth.onAuthStateChanged(user => {
-  if (user) {
-      console.log("User is signed in:", user);
+
+// Function to initialize the game state
+function initializeGame(gameState) {
+  if (gameState) {
+      built = gameState.built || {};
+      turnCounter = gameState.turnCounter || 0;
+      coins = gameState.coins || 16;
+      points = gameState.points || 0;
+
+      // Restore selected buildings
+      selectedBuildings = gameState.selectedBuildings || [];
+      setupBuildingOptions();
+
+      // Restore board state
+      for (let i = 1; i <= 400; i++) {  // Assuming 400 tiles
+          const tile = document.getElementById(i.toString());
+          if (tile) {
+              if (built[i]) {
+                  const html = `<img src="./images/${built[i].toLowerCase()}-tiny.svg" />`;
+                  tile.insertAdjacentHTML("afterbegin", html);
+              }
+          }
+      }
+
+      // Update coin display and score
+      updateCoinDisplay();
+      updateScoreDisplay();
   } else {
-      console.log("No user signed in");
-      // Redirect to sign-in page or show sign-in UI
+      setupBuildingOptions();  // Initialize building options for a new game
+  }
+}
+
+// Function to setup building options (similar to your original setup code)
+function setupBuildingOptions() {
+  for (let i = 0; i < 2; i++) {
+      let random = Math.floor(Math.random() * (5 - i));
+      selectedBuildings.push(buildings[random]);
+      buildings.splice(random, 1);
+      if (i == 0) {
+          const building1 = document.getElementById("building1");
+          const html = `<img src="./images/${selectedBuildings[0].toLowerCase()}.svg" />
+                        <h1 class="text-center">${selectedBuildings[0]}</h1>`;
+          building1.insertAdjacentHTML("afterbegin", html);
+          building1.addEventListener("click", function() {
+            choice = selectedBuildings[0];
+          });
+      } else {
+          const building2 = document.getElementById("building2");
+          const html = `<img src="./images/${selectedBuildings[1].toLowerCase()}.svg" />
+                        <h1 class="text-center">${selectedBuildings[1]}</h1>`;
+          building2.insertAdjacentHTML("afterbegin", html);
+          building2.addEventListener("click", function() {
+            choice = selectedBuildings[1];
+          });
+      }
+  }
+}
+
+// Function to update the score display
+function updateScoreDisplay() {
+  score.innerHTML = `Your Score: ${points}`;
+}
+
+// Event handler to load saved game state
+document.addEventListener('DOMContentLoaded', () => {
+  const savedGameState = localStorage.getItem('gameState');
+  if (savedGameState) {
+      const gameState = JSON.parse(savedGameState);
+      initializeGame(gameState);
+      localStorage.removeItem('gameState');  // Clear the saved state
+  } else {
+      initializeGame();  // Initialize a new game if no saved state
   }
 });
-
- // Function to save the game state
-function saveGame() {
-  const user = auth.currentUser;
-  if (user) {
-      const gameState = {
-          built,
-          turnCounter,
-          coins,
-          points
-      };
-
-      db.collection("games").doc(user.uid).set(gameState)
-          .then(() => {
-              console.log("Game state saved successfully!");
-              alert("Game state saved successfully!");
-          })
-          .catch(error => {
-              console.error("Error saving game state:", error);
-              alert("Error saving game state: " + error.message);
-          });
-  } else {
-      alert("No user signed in. Please sign in to save the game.");
-  }
-}
-
-// Add event listener to Save Game button
-const saveButton = document.getElementById("saveButton");
-saveButton.addEventListener("click", saveGame);
-
-// Function to load the game state
-function loadGame() {
-  const user = auth.currentUser;
-  if (user) {
-      db.collection("games").doc(user.uid).get()
-          .then(doc => {
-              if (doc.exists) {
-                  const gameState = doc.data();
-                  built = gameState.built;
-                  turnCounter = gameState.turnCounter;
-                  coins = gameState.coins;
-                  points = gameState.points;
-                  updateUI();
-              } else {
-                  console.log("No saved game state found.");
-              }
-          })
-          .catch(error => {
-              console.error("Error loading game state:", error);
-              alert("Error loading game state: " + error.message);
-          });
-  }
-}
-
-// Function to update the UI based on the loaded game state
-function updateUI() {
-  // Update the coin display
-  updateCoinDisplay();
-  // Re-render the buildings on the board
-  for (const id in built) {
-      const tile = document.getElementById(id);
-      const html = `<img src="./images/${built[id].toLowerCase()}-tiny.svg" />`;
-      tile.innerHTML = html;
-  }
-  // Update the score display
-  calculateScore();
-} */
-
-
-for (let i = 0; i < 2; i++) {
-    let random = Math.floor(Math.random() * (5 - i));
-    selectedBuildings.push(buildings[random]);
-    buildings.splice(random, 1);
-    if (i == 0) {
-        const building1 = document.getElementById("building1");
-        const html = `<img src="./images/${selectedBuildings[0].toLowerCase()}.svg" />
-                      <h1 class="text-center">${selectedBuildings[0]}</h1>`;
-        building1.insertAdjacentHTML("afterbegin", html);
-        building1.addEventListener("click", function() {
-          choice = selectedBuildings[0];
-        })
-    } else {
-        const building2 = document.getElementById("building2");
-        const html = `<img src="./images/${selectedBuildings[1].toLowerCase()}.svg" />
-                      <h1 class="text-center">${selectedBuildings[1]}</h1>`;
-        building2.insertAdjacentHTML("afterbegin", html);
-        building2.addEventListener("click", function() {
-          choice = selectedBuildings[1];
-        })
-    }
-}
 
 function getId(id) {
   const tile = document.getElementById(id);
@@ -407,6 +362,21 @@ function updateCoinDisplay() {
   const coinDisplay = document.getElementById("coin-display");
   coinDisplay.textContent = `Coins: ${coins}`;
 }
+
+function saveGame() {
+  const gameState = {
+    gameType,
+    built,
+    turnCounter,
+    coins,
+    points
+  };
+  localStorage.setItem("gameState", JSON.stringify(gameState));
+  location.href = "./save-game.html";
+}
+
+const saveButton = document.getElementById("saveButton");
+saveButton.addEventListener("click", saveGame);
 
 function exitGame() {
   location.href = "./index.html";
