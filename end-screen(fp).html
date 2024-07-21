@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./styles.css" rel="stylesheet">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
     <div class="es-header">
@@ -13,6 +14,7 @@
     <div class="large-rectangle">
         <div class="es-score">
             <div id="final-score">Your Final Score: <span id="score-display"></span></div>
+            <div id="high-score">Your High Score: <span id="high-score-display"></span></div>
         </div>
         <div class="inner-rectangle" id="esFreeplay">
             <p class="ir-text">TRY AGAIN</p>
@@ -28,11 +30,80 @@
         </div>
     </div>
 </body>
-<script>
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js';
+    import { getFirestore, doc, setDoc, getDocs, collection, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js';
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBWMWesdJBRs64nInlQotb3BGOPVFzLfEg",
+        authDomain: "ngeeanncity-11800.firebaseapp.com",
+        projectId: "ngeeanncity-11800",
+        storageBucket: "ngeeanncity-11800.appspot.com",
+        messagingSenderId: "327848331733",
+        appId: "1:327848331733:web:18c968969b91beeebfd55c",
+        measurementId: "G-DB9D997LYY"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let lowestHighScore;
+
+    async function getUserScores() {
+        const docRef = doc(db, "users", localStorage.getItem("uid"));
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            localStorage.setItem("lowestHighScore", docSnap.data().FreePlayHS);
+        } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }
+
+    getUserScores();
+
     const scoreDisplay = document.getElementById("score-display");
+    const highScoreDisplay = document.getElementById("high-score-display");
     const finalScore = localStorage.getItem("finalScore");
+
+    if (parseInt(finalScore) > localStorage.getItem("lowestHighScore")) {
+        loadScores(() => {
+            Swal.fire({
+                title: "New High Score!",
+                html: '<input id="nameInput" type="text"><button id="submitButton">submit</button>',
+                showCloseButton: true,
+            });
+            scoreDisplay.textContent = finalScore;
+            highScoreDisplay.textContent = finalScore; // Update high score display
+        });
+        const nameInput = document.getElementById("nameInput");
+        const submitButton = document.getElementById("submitButton");
+        const date = new Date();
+        submitButton.addEventListener("click", async () => {
+            const userData = {
+                name: nameInput.value,
+                FreePlayHS: finalScore,
+                freeplayDate: date
+            }
+
+            await updateDoc(doc(db, "users", localStorage.getItem("uid")), userData);
+
+            swal.close();
+        })
+        localStorage.setItem("lowestHighScore", 0);
+    }
+
+    function loadScores(callback) {
+        // Load scores here
+        //...
+        callback();
+    }
+
     scoreDisplay.textContent = finalScore;
-   </script>
+    highScoreDisplay.textContent = finalScore; // Update high score display
+</script>
 <script src="./end-screen.js"></script>
 <script src="./free-play.js"></script>
 </html>

@@ -27,7 +27,7 @@
 }
 
 .w-4p {
-    width: 4%;
+    width: 40px;
 }
 
 .w-5p {
@@ -59,7 +59,7 @@
 }
 
 .h-5p {
-    height: 5%;
+    height: 50px;
 }
 
 .h-30p {
@@ -164,7 +164,7 @@
 }
 
 .h-100vh {
-    height: 100vh;
+    height: 140vh;
 }
 
 .w-100p {
@@ -604,3 +604,41 @@ color: #D66D50;
     background-color: #014a57;
 }
 
+#highscore-popup {
+    max-width: 400px;
+    max-height: 300px;
+    overflow: hidden; 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+  }
+  #highscore-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  #highscore-score{
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  #highscore-button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  #highscore-button:hover {
+    background-color: #3e8e41;
+  }
