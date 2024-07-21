@@ -6,29 +6,82 @@ let built = {};
 let turnCounter = 0;
 let coins = 16;
 let choice;
+let gameType = "Arcade";
 
-for (let i = 0; i < 2; i++) {
-    let random = Math.floor(Math.random() * (5 - i));
-    selectedBuildings.push(buildings[random]);
-    buildings.splice(random, 1);
-    if (i == 0) {
-        const building1 = document.getElementById("building1");
-        const html = `<img src="./images/${selectedBuildings[0].toLowerCase()}.svg" />
-                      <h1 class="text-center">${selectedBuildings[0]}</h1>`;
-        building1.insertAdjacentHTML("afterbegin", html);
-        building1.addEventListener("click", function() {
-          choice = selectedBuildings[0];
-        })
-    } else {
-        const building2 = document.getElementById("building2");
-        const html = `<img src="./images/${selectedBuildings[1].toLowerCase()}.svg" />
-                      <h1 class="text-center">${selectedBuildings[1]}</h1>`;
-        building2.insertAdjacentHTML("afterbegin", html);
-        building2.addEventListener("click", function() {
-          choice = selectedBuildings[1];
-        })
-    }
+
+// Function to initialize the game state
+function initializeGame(gameState) {
+  if (gameState) {
+      built = gameState.built || {};
+      turnCounter = gameState.turnCounter || 0;
+      coins = gameState.coins || 16;
+      points = gameState.points || 0;
+
+      // Restore selected buildings
+      selectedBuildings = gameState.selectedBuildings || [];
+      setupBuildingOptions();
+
+      // Restore board state
+      for (let i = 1; i <= 400; i++) {  // Assuming 400 tiles
+          const tile = document.getElementById(i.toString());
+          if (tile) {
+              if (built[i]) {
+                  const html = `<img src="./images/${built[i].toLowerCase()}-tiny.svg" />`;
+                  tile.insertAdjacentHTML("afterbegin", html);
+              }
+          }
+      }
+
+      // Update coin display and score
+      updateCoinDisplay();
+      updateScoreDisplay();
+  } else {
+      setupBuildingOptions();  // Initialize building options for a new game
+  }
 }
+
+// Function to setup building options (similar to your original setup code)
+function setupBuildingOptions() {
+  for (let i = 0; i < 2; i++) {
+      let random = Math.floor(Math.random() * (5 - i));
+      selectedBuildings.push(buildings[random]);
+      buildings.splice(random, 1);
+      if (i == 0) {
+          const building1 = document.getElementById("building1");
+          const html = `<img src="./images/${selectedBuildings[0].toLowerCase()}.svg" />
+                        <h1 class="text-center">${selectedBuildings[0]}</h1>`;
+          building1.insertAdjacentHTML("afterbegin", html);
+          building1.addEventListener("click", function() {
+            choice = selectedBuildings[0];
+          });
+      } else {
+          const building2 = document.getElementById("building2");
+          const html = `<img src="./images/${selectedBuildings[1].toLowerCase()}.svg" />
+                        <h1 class="text-center">${selectedBuildings[1]}</h1>`;
+          building2.insertAdjacentHTML("afterbegin", html);
+          building2.addEventListener("click", function() {
+            choice = selectedBuildings[1];
+          });
+      }
+  }
+}
+
+// Function to update the score display
+function updateScoreDisplay() {
+  score.innerHTML = `Your Score: ${points}`;
+}
+
+// Event handler to load saved game state
+document.addEventListener('DOMContentLoaded', () => {
+  const savedGameState = localStorage.getItem('gameState');
+  if (savedGameState) {
+      const gameState = JSON.parse(savedGameState);
+      initializeGame(gameState);
+      localStorage.removeItem('gameState');  // Clear the saved state
+  } else {
+      initializeGame();  // Initialize a new game if no saved state
+  }
+});
 
 function getId(id) {
   const tile = document.getElementById(id);
@@ -296,17 +349,33 @@ function calculateScore() {
   updateCoinDisplay();
 
   if (coins == 0) {
+    localStorage.setItem("finalScore", points);
     setTimeout(() => {
-      location.href = "./end-screen(a).html";
+      location.href = "./end-screen(a).html?score=" + points;
     }, 1000);
   }
 }
   
 // helper function to update the coin display on the main page
 function updateCoinDisplay() {
-    const coinDisplay = document.getElementById("coin-display");
-    coinDisplay.textContent = `Coins: ${coins}`;
+  const coinDisplay = document.getElementById("coin-display");
+  coinDisplay.textContent = `Coins: ${coins}`;
 }
+
+function saveGame() {
+  const gameState = {
+    gameType,
+    built,
+    turnCounter,
+    coins,
+    points
+  };
+  localStorage.setItem("gameState", JSON.stringify(gameState));
+  location.href = "./save-game.html";
+}
+
+const saveButton = document.getElementById("saveButton");
+saveButton.addEventListener("click", saveGame);
 
 function exitGame() {
   location.href = "./index.html";
