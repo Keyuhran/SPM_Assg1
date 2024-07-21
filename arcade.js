@@ -255,49 +255,49 @@ function calculateScore() {
       tempPoints2 += Object.values(built).filter(x => x == "Industry").length;
       if (Object.keys(built).includes((tileId + 20).toString()) == true) {
         if (built[tileId + 20] == "Residential") {
-          tempPoints2 += 1;
+          coins += 1;
         }
       }
       if (Object.keys(built).includes((tileId - 20).toString()) == true) {
         if (built[tileId + 20] == "Residential") {
-          tempPoints2 += 1;
+          coins += 1;
         }
       }
       if (Object.keys(built).includes((tileId + 1).toString()) == true) {
         if (built[tileId + 20] == "Residential") {
-          tempPoints2 += 1;
+          coins += 1;
         }
       }
       if (Object.keys(built).includes((tileId - 1).toString()) == true) {
         if (built[tileId + 20] == "Residential") {
-          tempPoints2 += 1;
+          coins += 1;
         }
       }
     } else if (type == "Commercial") {
       if (Object.keys(built).includes((tileId + 20).toString()) == true) {
         if (built[tileId + 20] == "Residential") {
-          tempPoints2 += 1;
+          coins += 1;
         } else if (built[tileId + 20] == "Commercial") {
           tempPoints2 += 1;
         }
       }
       if (Object.keys(built).includes((tileId - 20).toString()) == true) {
         if (built[tileId - 20] == "Residential") {
-          tempPoints2 += 1;
+          coins += 1;
         } else if (built[tileId - 20] == "Commercial") {
           tempPoints2 += 1;
         }
       }
       if (Object.keys(built).includes((tileId + 1).toString()) == true) {
         if (built[tileId + 1] == "Residential") {
-          tempPoints2 += 1;
+          coins += 1;
         } else if (built[tileId + 1] == "Commercial") {
           tempPoints2 += 1;
         }
       }
       if (Object.keys(built).includes((tileId - 1).toString()) == true) {
         if (built[tileId - 1] == "Residential") {
-          tempPoints2 += 1;
+          coins += 1;
         } else if (built[tileId - 1] == "Commercial") {
           tempPoints2 += 1;
         }
@@ -346,8 +346,7 @@ function calculateScore() {
 
   score.innerHTML = `Your Score: ` + points + ``; 
 
-  
-
+  updateCoinDisplay();
 
   if (coins == 0) {
     localStorage.setItem("finalScore", points);
