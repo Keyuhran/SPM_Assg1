@@ -32,7 +32,7 @@
 </body>
 <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js';
-    import { getFirestore, doc, setDoc, getDocs, collection } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js';
+    import { getFirestore, doc, setDoc, getDocs, collection, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js';
 
     const firebaseConfig = {
         apiKey: "AIzaSyBWMWesdJBRs64nInlQotb3BGOPVFzLfEg",
@@ -49,27 +49,26 @@
 
     let lowestHighScore;
 
-    async function getLeaderboard() {
-        const querySnapshot = await getDocs(collection(db, "freePlayLeaderboard"));
-        querySnapshot.forEach((doc) => {
-            if (lowestHighScore == null) {
-                lowestHighScore = doc.data().FreePlayHS
-            } else {
-                if (lowestHighScore > doc.data().FreePlayHS) {
-                    lowestHighScore = doc.data().FreePlayHS
-                }
-            }
-        });
-        localStorage.setItem("lowestHighScore", lowestHighScore);
+    async function getUserScores() {
+        const docRef = doc(db, "users", localStorage.getItem("uid"));
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            localStorage.setItem("lowestHighScore", docSnap.data().FreePlayHS);
+        } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
+        }
     }
 
-    getLeaderboard();
+    getUserScores();
 
     const scoreDisplay = document.getElementById("score-display");
     const highScoreDisplay = document.getElementById("high-score-display");
     const finalScore = localStorage.getItem("finalScore");
 
-    if (parseInt(finalScore) >= localStorage.getItem("lowestHighScore")) {
+    if (parseInt(finalScore) > localStorage.getItem("lowestHighScore")) {
         loadScores(() => {
             Swal.fire({
                 title: "New High Score!",
@@ -81,16 +80,19 @@
         });
         const nameInput = document.getElementById("nameInput");
         const submitButton = document.getElementById("submitButton");
+        const date = new Date();
         submitButton.addEventListener("click", async () => {
             const userData = {
-                Name: nameInput.value,
-                FreePlayHS: finalScore
+                name: nameInput.value,
+                FreePlayHS: finalScore,
+                freeplayDate: date
             }
 
-            await setDoc(doc(db, "freePlayLeaderboard", localStorage.getItem("uid")), userData);
+            await updateDoc(doc(db, "users", localStorage.getItem("uid")), userData);
 
             swal.close();
         })
+        localStorage.setItem("lowestHighScore", 0);
     }
 
     function loadScores(callback) {
