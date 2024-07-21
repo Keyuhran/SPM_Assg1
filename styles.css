@@ -27,7 +27,7 @@
 }
 
 .w-4p {
-    width: 4%;
+    width: 40px;
 }
 
 .w-5p {
@@ -59,7 +59,7 @@
 }
 
 .h-5p {
-    height: 5%;
+    height: 50px;
 }
 
 .h-30p {
@@ -164,7 +164,7 @@
 }
 
 .h-100vh {
-    height: 100vh;
+    height: 140vh;
 }
 
 .w-100p {

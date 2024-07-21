@@ -54,7 +54,7 @@ const board = document.getElementById("board");
 function drawBoard() {
     board.innerHTML = ``;
     for (let i = 1; i < rows + 1; i++) {
-        let rowHTML = `<div id="r${i}" class="flex justify-center w-70p h-5p"></div>`;
+        let rowHTML = `<div id="r${i}" class="flex justify-center w-100p h-5p"></div>`;
         board.insertAdjacentHTML("beforeend", rowHTML);
         for (let j = 1; j < rows + 1; j++) {
             let id = parseInt(j * 1) + parseInt((i - 1) * rows);
