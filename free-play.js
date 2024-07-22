@@ -111,31 +111,31 @@ function getId(id) {
     }
 
     if (expansionCount < 2) {
-      if (id >= 1 && id <= rows) {
-          rows += 10;
-          let newBuilt = {};
-          for (let i = 0; i < Object.keys(built).length; i++) {
-              let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
-              newBuilt[newId] = Object.values(built)[i];
-          }
-          built = newBuilt;
-          expansionCount++;
-          drawBoard();
-      } else if (id % rows == 0) {
-          rows += 10;
-          let newBuilt = {};
-          for (let i = 0; i < Object.keys(built).length; i++) {
-              if (Object.keys(built)[i] % (rows - 10) == 0) {
-                  let newId = (Math.floor((Object.keys(built)[i] - 1) / (rows - 10)) + 5) * rows + 5 + ((Object.keys(built)[i] - 1) % (rows - 10)) + 1;
-                  newBuilt[newId] = Object.values(built)[i];
-              } else {
-                  let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
-                  newBuilt[newId] = Object.values(built)[i];
-              }
-          }
-          built = newBuilt;
-          expansionCount++;
-          drawBoard();
+      if (id % rows == 0) {
+        rows += 10;
+        let newBuilt = {};
+        for (let i = 0; i < Object.keys(built).length; i++) {
+            if (Object.keys(built)[i] % (rows - 10) == 0) {
+                let newId = (Math.floor((Object.keys(built)[i] - 1) / (rows - 10)) + 5) * rows + 5 + ((Object.keys(built)[i] - 1) % (rows - 10)) + 1;
+                newBuilt[newId] = Object.values(built)[i];
+            } else {
+                let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
+                newBuilt[newId] = Object.values(built)[i];
+            }
+        }
+        built = newBuilt;
+        expansionCount++;
+        drawBoard();
+      } else if (id >= 1 && id <= rows) {
+        rows += 10;
+            let newBuilt = {};
+            for (let i = 0; i < Object.keys(built).length; i++) {
+                let newId = (Math.floor(Object.keys(built)[i] / (rows - 10)) + 5) * rows + 5 + (Object.keys(built)[i] % (rows - 10));
+                newBuilt[newId] = Object.values(built)[i];
+            }
+            built = newBuilt;
+            expansionCount++;
+            drawBoard();
       } else if (id % rows == 1) {
           rows += 10;
           let newBuilt = {};
