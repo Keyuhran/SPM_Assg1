@@ -32,7 +32,7 @@
 </body>
 <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js';
-    import { getFirestore, doc, setDoc, getDocs, collection, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js';
+    import { getFirestore, doc, setDoc, getDoc, collection, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js';
 
     const firebaseConfig = {
         apiKey: "AIzaSyBWMWesdJBRs64nInlQotb3BGOPVFzLfEg",
@@ -47,15 +47,15 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    let lowestHighScore;
+    let FreePlayHS;
 
     async function getUserScores() {
         const docRef = doc(db, "users", localStorage.getItem("uid"));
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-            localStorage.setItem("lowestHighScore", docSnap.data().FreePlayHS);
+            localStorage.setItem("FreePlayHS", docSnap.data().FreePlayHS);
+            localStorage.setItem("ArcadeHS", docSnap.data().ArcadeHS);
         } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
@@ -68,7 +68,7 @@
     const highScoreDisplay = document.getElementById("high-score-display");
     const finalScore = localStorage.getItem("finalScore");
 
-    if (parseInt(finalScore) > localStorage.getItem("lowestHighScore")) {
+    if (parseInt(finalScore) > localStorage.getItem("FreePlayHS") || localStorage.getItem("FreePlayHS") == "undefined") {
         loadScores(() => {
             Swal.fire({
                 title: "New High Score!",
@@ -88,11 +88,16 @@
                 freeplayDate: date
             }
 
-            await updateDoc(doc(db, "users", localStorage.getItem("uid")), userData);
+            if (localStorage.getItem("ArcadeHS") != "undefined") {
+                await updateDoc(doc(db, "users", localStorage.getItem("uid")), userData);
+            } else {
+                await setDoc(doc(db, "users", localStorage.getItem("uid")), userData);
+            }
 
             swal.close();
         })
-        localStorage.setItem("lowestHighScore", 0);
+        localStorage.setItem("FreePlayHS", 0);
+        localStorage.setItem("ArcadeHS", 0);
     }
 
     function loadScores(callback) {

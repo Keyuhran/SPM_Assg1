@@ -47,15 +47,15 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    let lowestHighScore;
+    let ArcadeHS;
 
     async function getUserScores() {
         const docRef = doc(db, "users", localStorage.getItem("uid"));
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-            localStorage.setItem("lowestHighScore", docSnap.data().ArcadeHS);
+            localStorage.setItem("FreePlayHS", docSnap.data().FreePlayHS);
+            localStorage.setItem("ArcadeHS", docSnap.data().ArcadeHS);
         } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
@@ -68,7 +68,7 @@
     const highScoreDisplay = document.getElementById("high-score-display");
     const finalScore = localStorage.getItem("finalScore");
 
-    if (parseInt(finalScore) > localStorage.getItem("lowestHighScore")) {
+    if (parseInt(finalScore) > localStorage.getItem("ArcadeHS") || localStorage.getItem("ArcadeHS") == "undefined") {
         loadScores(() => {
             Swal.fire({
                 title: "New High Score!",
@@ -88,11 +88,16 @@
                 arcadeDate: date
             }
 
-            await updateDoc(doc(db, "users", localStorage.getItem("uid")), userData);
+            if (localStorage.getItem("FreePlayHS") != "undefined") {
+                await updateDoc(doc(db, "users", localStorage.getItem("uid")), userData);
+            } else {
+                await setDoc(doc(db, "users", localStorage.getItem("uid")), userData);
+            }
 
             swal.close();
         })
-        localStorage.setItem("lowestHighScore", 0);
+        localStorage.setItem("FreePlayHS", 0);
+        localStorage.setItem("ArcadeHS", 0);
     }
 
     function loadScores(callback) {
