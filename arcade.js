@@ -73,11 +73,11 @@ function updateScoreDisplay() {
 
 // Event handler to load saved game state
 document.addEventListener('DOMContentLoaded', () => {
-  const savedGameState = localStorage.getItem('gameState');
+  const savedGameState = localStorage.getItem('arcadeSavedGameState');
   if (savedGameState) {
       const gameState = JSON.parse(savedGameState);
       initializeGame(gameState);
-      localStorage.removeItem('gameState');  // Clear the saved state
+      localStorage.removeItem('arcadeSavedGameState');  // Clear the saved state
   } else {
       initializeGame();  // Initialize a new game if no saved state
   }
@@ -378,6 +378,7 @@ const saveButton = document.getElementById("saveButton");
 saveButton.addEventListener("click", saveGame);
 
 function exitGame() {
+  localStorage.clear("arcadeSavedGameState");
   location.href = "./index.html";
 }
 

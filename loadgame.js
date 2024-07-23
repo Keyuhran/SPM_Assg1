@@ -94,15 +94,16 @@ function loadGame(saveId) {
     getDoc(saveGameRef).then(docSnapshot => {
         if (docSnapshot.exists()) {
             const gameData = docSnapshot.data();
-            
-            // Store the game state in localStorage
-            localStorage.setItem('savedGameState', JSON.stringify(gameData));
 
             // Redirect based on the game type
             const gameType = gameData.gameType || 'Unknown';
             if (gameType === 'Arcade') {
+                // Store the game state in localStorage
+                localStorage.setItem('arcadeSavedGameState', JSON.stringify(gameData));
                 window.location.href = "arcade.html";
             } else if (gameType === 'Freeplay') {
+                // Store the game state in localStorage
+                localStorage.setItem('freeplaySavedGameState', JSON.stringify(gameData));
                 window.location.href = "free-play.html";
             } else {
                 alert("Unknown game type.");

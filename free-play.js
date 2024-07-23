@@ -71,7 +71,7 @@ function drawBoard() {
 
 // Load game state from localStorage if available
 document.addEventListener('DOMContentLoaded', () => {
-  const savedGameState = localStorage.getItem('savedGameState');
+  const savedGameState = localStorage.getItem('freeplaySavedGameState');
   if (savedGameState) {
       const gameData = JSON.parse(savedGameState);
       built = gameData.built || {};
@@ -446,6 +446,7 @@ function updateCoinDisplay() {
 }
 
 function exitGame() {
+  localStorage.clear("freeplaySavedGameState");
   location.href = "./index.html";
 }
 
