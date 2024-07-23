@@ -167,6 +167,10 @@
     height: 140vh;
 }
 
+.arcade-100vh {
+    height: 100vh;
+}
+
 .w-100p {
     width: 100%;
 }
